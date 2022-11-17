@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./test.css" />
+    <script type="module" src="./test.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" id="title">
+    <button id="btn">データ取得</button>
+    <div id="output"></div>
+    <div id="map"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBITw3qtjftlpePJ85f8FbW3h3qni4JHZw&libraries=places&callback=initMap">
+        </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBITw3qtjftlpePJ85f8FbW3h3qni4JHZw&callback=initMap&v=weekly"
+        defer></script>
+</body>
+
+</html>
