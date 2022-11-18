@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<html>
+  <head>
+    <title>Add Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
-</body>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!-- 開始地点を選択 -->
+    <form action="" id="form">
+      <div class="select-address">
+        <label for="">
+          <div>
+          出発地点を選択する
+            <select name="都道府県" id="selectStart" >
+              <option value="博多区" class="hakata">博多区</option>
+              <option value="福岡県中央区" class="tyuoh">中央区</option>
+              <option value="早良区" class="sawara">早良区</option>
+            </select>
+          </div>
+        </label>
+
+        <label for="">
+          <div>
+          目的地を選択する
+            <select name="都道府県" id="selectEnd">
+              <option value="広島市" class="hakata">広島市</option>
+              <option value="呉市" class="tyuoh">呉市</option>
+              <option value="福山市" class="sawara">福山市</option>            
+            </select>
+          </div>
+        </label>
+        
+        <button id="btn">検索する</button>
+      </div>
+    </form>
+
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly"
+      defer
+    ></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+  </body>
 </html>
