@@ -10,18 +10,24 @@
 
 <body>
     <h2>G'sから現在地に地図移動</h2>
-    <p>美術館検索結果</p>
+    <p>いじってみている最中</p>
+    <input type="text" id="title">
+    <button id="btn">データ取得</button>
+
     <div id="gmap" style="height:800px;width:1000px"></div>
 
     <script>
         function initMap() {
             var target = document.getElementById('gmap');
-            var current_location = { lat: 33.5860037, lng: 130.3957793 };  //G's
+            var current_location = { lat: 33.5860037, lng: 130.3957793 };  //最初の表示をG'sにしている
             var map = new google.maps.Map(document.getElementById('gmap'), {
                 center: current_location,
                 zoom: 16
             });
-
+            const marker = new google.maps.Marker({
+                position: current_location,
+                map: map,
+            });
             //情報ウィンドウのインスタンスの生成（後でマーカーに紐付け）
             var infowindow = new google.maps.InfoWindow();
 
@@ -56,11 +62,13 @@
 
                 //種類（タイプ）やキーワードをもとに施設を検索（プレイス検索）するメソッド nearbySearch()
 
+                // service = new google.maps.places.PlacesService(map);
+                // service.textSearch(request, callback);
 
                 service.nearbySearch({
                     location: pos,  //検索するロケーション
-                    radius: 30000,  //検索する半径（メートル）
-                    name: ['美術館']  //nameで検索。文字列またはその配列で指定
+                    radius: 1000,  //検索する半径（メートル）
+                    name: ['映画館']  //nameで検索。文字列またはその配列で指定
                     //キーワードで検索する場合は name:'レストラン' や ['レストラン','中華'] のように指定 typeもある
 
 
@@ -68,6 +76,7 @@
 
                 //コールバック関数には results, status が渡されるので、status により条件分岐
                 function callback(results, status) {
+                    console.log(results);
                     // status は以下のような定数で判定（OK の場合は results が配列で返ってきます）
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         //results の数だけ for 文で繰り返し処理
@@ -103,6 +112,13 @@
         }
 
     </script>
+
+    <script>
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, callback);
+    </script>
+
+
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBITw3qtjftlpePJ85f8FbW3h3qni4JHZw&callback=initMap&libraries=places"
         async defer></script>
