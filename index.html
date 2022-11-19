@@ -7,34 +7,40 @@
     
 
     <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./index.js"></script>
+    <script type="module" src="./route.js"></script>
   </head>
   <body>
     <h3>My Google Maps Demo</h3>
     <!-- 開始地点を選択 -->
     <form action="" id="form">
-      <div class="select-address">
-        <label for="">
-          <div>
-          出発地点を選択する
-            <select name="都道府県" id="selectStart" >
-              <option value="博多区" class="hakata">博多区</option>
-              <option value="福岡県中央区" class="tyuoh">中央区</option>
-              <option value="早良区" class="sawara">早良区</option>
-            </select>
-          </div>
-        </label>
 
+      <!-- 料理検索ボックス -->
+      <div>
         <label for="">
-          <div>
-          目的地を選択する
-            <select name="都道府県" id="selectEnd">
-              <option value="広島市" class="hakata">広島市</option>
-              <option value="呉市" class="tyuoh">呉市</option>
-              <option value="福山市" class="sawara">福山市</option>            
-            </select>
-          </div>
+          <input type="text" name="" id="txtSearch">
         </label>
+      </div>
+
+      <!-- 料理ジャンル選択 -->
+      <div>
+        <select name="food_genre" id="foodGenre">
+            <option value="G001">居酒屋</option>
+            <option value="G002">ダイニングバー</option>
+            <option value="G003">創作料理</option>
+            <option value="G004">和食</option>
+            <option value="G005">洋食</option>
+            <option value="G006">イタリアン・フレンチ</option>
+        </select>
+      </div>
+      <div class="select-address">
+
+
+        <!-- 施設検索 -->
+        <div>
+            <label for="">
+              <input type="text" name="" id="input">
+            </label>
+          </div>
         
         <button id="btn">検索する</button>
       </div>
@@ -50,9 +56,10 @@
      with https://www.npmjs.com/package/@googlemaps/js-api-loader.
     -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly&libraries=places"
       defer
     ></script>
+    
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
