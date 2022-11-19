@@ -5,6 +5,7 @@ var infowindow;
 var directionsDisplay;
 var directionsService;
 var service;
+let placeData = [];
 
 
 //initialize関数
@@ -38,14 +39,15 @@ function initMap() {
 
 }
 
-//-----Google Places API------
+//---------------Google Places API----------------
 function searchPlaces() {
 
   const inputText = $("#input").val();
+  const txtSearch = $('#txtSearch').val();
   //検索する場所のクエリ
   var request = {
     //地名、住所、カテゴリ
-    query: inputText,
+    query: inputText + " " + txtSearch,
     fields: ["name", "geometry", "formatted_address", "business_status", "place_id", "types"],
   };
 
@@ -53,18 +55,16 @@ function searchPlaces() {
   var service = new google.maps.places.PlacesService(map);
 
 
-  const placeArr = [];
   //クエリをもとに検索結果を取得(戻り値なし/１件のみ)
    service.findPlaceFromQuery(request, function(results, status) {
     console.log(results);
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      console.log(results);
-      map.setCenter(results[0].geometry.location);
-      placeArr.push(results);
+      console.log(results[0]);
+      const place = results[0];
+      placeData.push(place);
     }
+    console.log(placeData);
   });
-
-  console.log(placeArr);
 
   //情報ウィンドウのインスタンスの生成（後でマーカーに紐付け）
   var infowindow = new google.maps.InfoWindow();
@@ -80,11 +80,10 @@ function searchPlaces() {
       //情報ウィンドウを表示
       infowindow.open(map);
   }
-
-  return placeArr;
 }
 
-//ルートを検索する関数
+
+//------------ルートを検索する関数------------
 function searchRoute(latlng) {
 
   console.log(latlng[0].lat,latlng[0].lng,latlng[1].lat,latlng[1].lng)
@@ -204,21 +203,20 @@ $('#btn').on('click', function (e) {
           lng: res[endNum].lng
         }];
 
-        
-        let getPlaceParams = searchPlaces();
-        console.log(latlng);
 
-        return {
-          latlng: latlng,
-          placeParams: getPlaceParams,
-        };
+        
+        console.log(latlng);
+        searchPlaces();
+        return latlng;
       })
       .then((res) => {
         console.log(res);
-        let hotpepper_latlng = res.latlng;
-        let places_latlng = res.placeParams;
-        console.log(hotpepper_latlng,places_latlng);
-        searchRoute(hotpepper_latlng)
+        //ホットペッパーの緯度経度の情報
+        const hotpepper_latlng = res;
+        console.log(hotpepper_latlng);
+        console.log(placeData);
+        searchRoute(hotpepper_latlng);
+        initMap();
       });
 })
 
