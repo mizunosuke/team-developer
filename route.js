@@ -8,6 +8,7 @@ var service;
 let placeData = [];
 
 
+
 //initialize関数
 function initMap() {
   var latlng = new google.maps.LatLng(35.681382,139.766084);//東京駅
@@ -39,58 +40,79 @@ function initMap() {
 
 }
 
-//---------------Google Places API----------------
-function searchPlaces() {
 
-  const inputText = $("#input").val();
+
+//------------ホットペッパーから緯度経度をとってくる関数------------
+async function getHotpepperData() {
   const txtSearch = $('#txtSearch').val();
-  //検索する場所のクエリ
-  var request = {
-    //地名、住所、カテゴリ
-    query: inputText + " " + txtSearch,
-    fields: ["name", "geometry", "formatted_address", "business_status", "place_id", "types"],
+  const genreSearch = $('#foodGenre').val();
+  const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${txtSearch}&range=5&order=4&genre=${genreSearch}&format=json`;
+
+  let getData = await axios.get(hot_url);
+  console.log(getData.data.results.shop);
+  let shopData = getData.data.results.shop;
+
+  //ホットペッパーから取ってきたデータのうちランダムに2つの緯度経度を取得
+  const startNum = Math.floor(Math.random()*5);
+  const endNum = Math.floor(Math.random()*4 + 5);
+
+  //スタート地点の緯度経度
+  const startShopLatLng = {
+    lat: shopData[startNum].lat,
+    lng: shopData[startNum].lng
   };
 
-  //変数serviceにinitMapで作成されたmapインスタンスを使用するインスタンスを代入
-  var service = new google.maps.places.PlacesService(map);
+  //終了地点の緯度経度
+  const endShopLatLng = {
+    lat: shopData[endNum].lat,
+    lng: shopData[endNum].lng
+  };
 
+  console.log(startShopLatLng,endShopLatLng);
+  const shopLatLngData = {
+    start: startShopLatLng,
+    end: endShopLatLng
+  };
 
-  //クエリをもとに検索結果を取得(戻り値なし/１件のみ)
-   service.findPlaceFromQuery(request, function(results, status) {
-    console.log(results);
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      console.log(results[0]);
-      const place = results[0];
-      placeData.push(place);
-    }
-    console.log(placeData);
-  });
-
-  //情報ウィンドウのインスタンスの生成（後でマーカーに紐付け）
-  var infowindow = new google.maps.InfoWindow();
-
-  //PlacesService のインスタンスの生成（引数に map を指定）
-  var service = new google.maps.places.PlacesService(map);
-
-  if (!navigator.geolocation) {
-      //情報ウィンドウの位置をマップの中心位置に指定
-      infowindow.setPosition(map.getCenter());
-      //情報ウィンドウのコンテンツを設定
-      infowindow.setContent;
-      //情報ウィンドウを表示
-      infowindow.open(map);
-  }
+  return shopLatLngData; 
 }
 
 
-//------------ルートを検索する関数------------
-function searchRoute(latlng) {
 
-  console.log(latlng[0].lat,latlng[0].lng,latlng[1].lat,latlng[1].lng)
-  //スタート地点とゴール地点の文字列を取得
-  var latlng_start = new google.maps.LatLng(latlng[0].lat,latlng[0].lng);
-  var latlng_end = new google.maps.LatLng(latlng[1].lat,latlng[1].lng);
-  
+
+//------------GooglePlacesAPIから緯度経度をとってくる関数------------
+async function getPlacesData() {
+  //inputタグから入力された内容を取得
+  const searchText = $("#input").val();
+  const txtSearch = $('#txtSearch').val();
+  const inputText = searchText + " " + txtSearch;
+  const place_url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&input=${inputText}&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE`;
+
+  //APIにリクエスト
+  let placeData = await axios.get(place_url);
+  console.log(placeData);
+  console.log(placeData.data.candidates[0].geometry.location);
+  //施設に緯度経度を取得
+  let placeLatLng = placeData.data.candidates[0].geometry.location;
+
+  return placeLatLng;
+}
+
+
+
+
+
+//------------ルートを検索する関数------------
+function searchRoute(shop,place) {
+
+  //スタート地点の緯度経度をoriginに設定
+  const startLatLng = shop.start;
+  //ゴール地点の緯度経度をdestinationに設定
+  const endLatLng = shop.end;
+ 
+  //経由地点の緯度経度をwatpointsに指定
+  console.log(place);
+  var pointsLatLng = new google.maps.LatLng(place.lat,place.lng);//東京駅
 
   //レンダリングのオプション設定
   var rendererOptions = {
@@ -103,13 +125,11 @@ function searchRoute(latlng) {
   directionsService = new google.maps.DirectionsService();
   //インスタンス作成時の設定・開始地点やゴール地点など
   var request = {
-      origin: latlng_start,
-      destination: latlng_end,
-      // waypoints: [{
-      //   location: "下関市"
-      // },{
-      //   location: "岩国市"
-      // }],
+      origin: startLatLng,
+      destination: endLatLng,
+      waypoints: [{
+        location:pointsLatLng
+      }],
       travelMode: google.maps.DirectionsTravelMode.WALKING, // 自動車でのルート
       // unitSystem: google.maps.DirectionsUnitSystem.METRIC, // 単位km表示
       optimizeWaypoints: true, // 最適化された最短距離にする
@@ -148,82 +168,68 @@ function searchRoute(latlng) {
 window.initMap = initMap;
 
 
-//hotpepper API
-$('#btn').on('click', function (e) {
+//検索ボタンクリックで発火
+$('#btn').on('click', async function(e) {
   e.preventDefault();
-  const txtSearch = $('#txtSearch').val();
-  const genreSearch = $('#foodGenre').val();
-  // key=bb80428ae528710b    &genre=G005
-  const url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${txtSearch}&range=5&order=4&genre=${genreSearch}&format=json`;
 
-  axios.get(url)
-      .then(function (response) {
-          console.log(response.data.results.shop);
-          const data = response.data.results.shop;
+  //hotpepperAPIからデータを取得する関数
+  let shopLatLng = await getHotpepperData();
 
-          //ブラウザに検索結果を表示
-          // const htmlElements = [];
-          // const LatLng = [];
-          // for (let i = 0; i < 4; i++) {
-          //     // $("#btn").on("click", function () {
-          //     htmlElements.push(`
-          //             <div><p id="show-results">${data[i].name}</p></div>
-          //             <div><p id="show-results">${data[i].access}</p></div>
-          //             <div><p id="show-results">${data[i].address}</p></div>
-          //             <div><p id="show-results">${data[i].lat}</p></div>
-          //             <div><p id="show-results">${data[i].lng}</p></div>
-          //             `);
-          //     const latlng = { lat: data[i].lat, lng: data[i].lng };
-          //     LatLng.push(latlng);
-          // };
-          // console.log(LatLng);
-          // // console.log(htmlElements);
-          // $('#result').html(htmlElements);
+  //placesAPIからデータを取得してくる関数
+  let placeLatLng = await getPlacesData();
 
-          // const logLat = [];
-          // for (let i = 0; i < 3; i++) {
-          //     logLat.push(`
-          //             <div><p id="show-results">${data.lng}</p></div>
-          //             <div><p id="show-results">${data.lat}</p></div>
-          //             `);
-          // };
-          // console.log(logLat);
-          return data;
-      })
-      .then((res) => {
-        //ホットペッパーから取ってきたデータのうちランダムに2つの緯度経度を取得してlatlng配列に追加
-        const startNum = Math.floor(Math.random()*5);
-        const endNum = Math.floor(Math.random()*5 + 5);
-        console.log(res);
-        const latlng = [{
-          lat: res[startNum].lat,
-          lng: res[startNum].lng
-        },{
-          lat: res[endNum].lat,
-          lng: res[endNum].lng
-        }];
+  //上記２つをもとにルート計算、描画を行う関数
+  searchRoute(shopLatLng,placeLatLng);
 
-
-        
-        console.log(latlng);
-        searchPlaces();
-        return latlng;
-      })
-      .then((res) => {
-        console.log(res);
-        //ホットペッパーの緯度経度の情報
-        const hotpepper_latlng = res;
-        console.log(hotpepper_latlng);
-        console.log(placeData);
-        searchRoute(hotpepper_latlng);
-        initMap();
-      });
 })
 
-//ジャンルを見る genre
-// const url = `http://webservice.recruit.co.jp/hotpepper/genre/v1/?key=bb80428ae528710b&format=json`;
 
-// axios.get(url)
-//   .then(function (response) {
-//       console.log(response.data.results.genre);
+//   const place_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE";
+  
+  
+//   axios.get(place_url)
+//   .then((res) => {
+//     console.log(res.data.candidates[0].geometry.location);
+//     const placeLatLng = res.data.candidates[0].geometry.location;
+//     placeData.push(placeLatLng);
+//     console.log(placeData);
 //   });
+  
+//   //ホットペッパーにリクエストを送る
+//   axios.get(hot_url)
+//       .then(function (response) {
+//           console.log(response.data.results.shop);
+//           const data = response.data.results.shop;
+//           return data;
+//       })
+//       .then((res) => {
+//         //ホットペッパーから取ってきたデータのうちランダムに2つの緯度経度を取得してlatlng配列に追加
+//         const startNum = Math.floor(Math.random()*5);
+//         const endNum = Math.floor(Math.random()*5 + 5);
+//         console.log(res);
+//         //緯度経度のセットをオブジェクトとして配列に追加
+//         const latlng = [{
+//           lat: res[startNum].lat,
+//           lng: res[startNum].lng
+//         },{
+//           lat: res[endNum].lat,
+//           lng: res[endNum].lng
+//         }];
+        
+//         console.log(latlng);
+//         return latlng;
+//       })
+//       .then((res) => {
+//         console.log(res);
+//         //ホットペッパーの緯度経度の情報
+//         const hotpepper_res = res;
+//         return hotpepper_res;
+//       })
+//       .then((res) => {
+//         const hotpepper_res = res;
+        
+//       })
+//       .then((res) => {
+//         console.log(res);
+//         searchRoute(res.hotpepper,res.placeData);
+//       });
