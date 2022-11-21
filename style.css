@@ -1,0 +1,211 @@
+/* 別窓でイントロダクション表示 */
+/*モーダルを開くボタン*/
+.modal-open {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 50px;
+    font-weight: bold;
+    color: #fff;
+    background: #000;
+    margin: auto;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    opacity: 85%;
+}
+
+/*モーダル本体の指定 + モーダル外側の背景の指定*/
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 50%);
+    padding: 40px 20px;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    box-sizing: border-box;
+}
+
+/*モーダル本体の擬似要素の指定*/
+.modal-container:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+/*モーダル本体に「active」クラス付与した時のスタイル*/
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*モーダル枠の指定*/
+.modal-body {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 500px;
+    width: 90%;
+}
+
+/*モーダルを閉じるボタンの指定*/
+.modal-close {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -40px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*モーダル内のコンテンツの指定*/
+.modal-content {
+    background: #fff;
+    text-align: left;
+    padding: 30px;
+}
+
+/* ↑ここまで別窓 */
+
+body {
+    width: cover;
+    margin: 0 auto;
+}
+
+.container {}
+
+form {
+    display: flex;
+    align-items: center;
+}
+
+#select-wrapper {
+    z-index: 1;
+    background-color: white;
+    opacity: 70%;
+    width: 100%;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    position: fixed;
+}
+
+#select-area {
+    margin-left: 50px;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#select-data {
+    background-color: rgb(251, 247, 221);
+    display: flex;
+}
+
+
+#select-location {
+    background-color: rgb(220, 244, 252);
+}
+
+
+#select-genre {
+
+    background-color: rgb(241, 220, 252);
+}
+
+#btn {}
+
+#img-wrapper {
+    /* height: 650px; */
+    background-color: black;
+}
+
+#img-container {
+    position: relative;
+    background-image: url();
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 100%;
+
+}
+
+.title-big {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 60%;
+    color: white;
+    font-size: 100px;
+}
+
+#map-route {
+    display: flex;
+    width: 100%;
+}
+
+#map-wrapper {
+    height: 550px;
+    width: 50%
+}
+
+#map-title {
+    background-color: white;
+    border: solid 1px black;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#map-display {
+    height: 500px;
+    border: solid 1px black;
+
+}
+
+#map {
+    height: 500px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
+}
+
+#route-wrapper {
+    height: 500px;
+    width: 50%;
+}
+
+#route-title {
+    border: solid 1px black;
+    height: 50px;
+    background-color: darkgray;
+    display: flex;
+    justify-content: center;
+}
+
+#route-display {
+    background-color: rgb(216, 216, 216);
+    height: 500px;
+    border: solid 1px black;
+}
+
+/* この中にプランを上から順に表示させる？ */
+#route-each {}
