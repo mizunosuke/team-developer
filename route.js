@@ -44,7 +44,7 @@ function initMap() {
 
 //------------ホットペッパーから緯度経度をとってくる関数------------
 async function getHotpepperData() {
-  const txtSearch = $('#txtSearch').val();
+  const txtSearch = $('#locationSearch').val();
   const genreSearch = $('#foodGenre').val();
   const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${txtSearch}&range=5&order=4&genre=${genreSearch}&format=json`;
 
@@ -69,12 +69,52 @@ async function getHotpepperData() {
   };
 
   console.log(startShopLatLng,endShopLatLng);
+  //２件のお店の緯度経度を１つにまとめる
   const shopLatLngData = {
     start: startShopLatLng,
     end: endShopLatLng
   };
 
-  return shopLatLngData; 
+
+  //取得したランダム２件のお店の表示
+  // console.log(shopData[startNum],shopData[endNum]);
+  const startShop = shopData[startNum];
+  const startShopData = {
+    name: startShop.name,
+    access: startShop.access,
+    address: startShop.address,
+    budget: startShop.budget,
+    card: startShop.card,
+    coupon: startShop.coupon_urls,
+    url: startShop.urls
+  };
+  console.log(startShopData);
+
+  const endShop = shopData[endNum];
+  const endShopData = {
+    name: endShop.name,
+    access: endShop.access,
+    address: endShop.address,
+    budget: endShop.budget,
+    card: endShop.card,
+    coupon: endShop.coupon_urls,
+    url: endShop.urls
+  };
+  console.log(endShopData);
+
+  //２件のお店のデータを１つにまとめる
+  const twoShopData = {
+    start: startShopData,
+    end: endShopData
+  };
+
+  //緯度経度とお店の情報を１つにまとめる
+  const allShopData = {
+    latlng: shopLatLngData,
+    shops: twoShopData
+  };
+
+  return allShopData; 
 }
 
 
@@ -83,36 +123,41 @@ async function getHotpepperData() {
 //------------GooglePlacesAPIから緯度経度をとってくる関数------------
 async function getPlacesData() {
   //inputタグから入力された内容を取得
-  const searchText = $("#input").val();
-  const txtSearch = $('#txtSearch').val();
+  const searchText = $("#locationSearch").val();
+  const txtSearch = $('#placeSearch').val();
   const inputText = searchText + " " + txtSearch;
-  const place_url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&input=${inputText}&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE`;
+  const place_url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Cgeometry&input=${inputText}&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE`;
 
   //APIにリクエスト
   let placeData = await axios.get(place_url);
   console.log(placeData);
   console.log(placeData.data.candidates[0].geometry.location);
-  //施設に緯度経度を取得
-  let placeLatLng = placeData.data.candidates[0].geometry.location;
+  //施設情報を取得
+  const allPlaceData = {
+    name: placeData.data.candidates[0].name,
+    address: placeData.data.candidates[0].formatted_address,
+    rating: placeData.data.candidates[0].rating,
+    placeLatLng: placeData.data.candidates[0].geometry.location,
+  };
 
-  return placeLatLng;
+  return allPlaceData;
 }
 
 
 
 
 
-//------------ルートを検索する関数------------
+//--------------------ルートを検索する関数--------------------
 function searchRoute(shop,place) {
 
   //スタート地点の緯度経度をoriginに設定
-  const startLatLng = shop.start;
+  const startLatLng = shop.latlng.start;
   //ゴール地点の緯度経度をdestinationに設定
-  const endLatLng = shop.end;
+  const endLatLng = shop.latlng.end;
  
   //経由地点の緯度経度をwatpointsに指定
   console.log(place);
-  var pointsLatLng = new google.maps.LatLng(place.lat,place.lng);//東京駅
+  var pointsLatLng = new google.maps.LatLng(place.placeLatLng.lat,place.placeLatLng.lng);//経由地点の緯度経度
 
   //レンダリングのオプション設定
   var rendererOptions = {
@@ -173,63 +218,60 @@ $('#btn').on('click', async function(e) {
   e.preventDefault();
 
   //hotpepperAPIからデータを取得する関数
-  let shopLatLng = await getHotpepperData();
+  let shopData = await getHotpepperData();
+  console.log(shopData);
+
+  //HTMLに変換するためにホットペッパーのお店情報を配列に追加
+  const shopArr = new Array(shopData);
+  console.log(shopArr);
+  //1件目の情報を追加
+  const starthtmlElem = [];
+  for(let i =0; i < shopArr.length; i++){
+    starthtmlElem.push(`
+    <h2>A : ${shopArr[i].shops.start.name}<h2>
+    <p>${shopArr[i].shops.start.access}</p>
+    <p>${shopArr[i].shops.start.address}</p>
+    <p>平均予算 : ${shopArr[i].shops.start.budget.name}</p>
+    <p>クレジットカード利用 : ${shopArr[i].shops.start.card}</p>
+    <p><a href="${shopArr[i].shops.start.coupon.pc}">クーポンを獲得する</a></p>
+    <p><a href="${shopArr[i].shops.start.url.pc}">ホームページへ</a></p>
+    `);
+  }
+  $("#route-each-a").html(starthtmlElem);
+
+  //2件目の情報を追加
+  const endhtmlElem = [];
+  for(let i =0; i < shopArr.length; i++){
+    endhtmlElem.push(`
+    <h2>C : ${shopArr[i].shops.end.name}<h2>
+    <p>${shopArr[i].shops.end.access}</p>
+    <p>${shopArr[i].shops.end.address}</p>
+    <p>平均予算 : ${shopArr[i].shops.end.budget.name}</p>
+    <p>クレジットカード利用 : ${shopArr[i].shops.end.card}</p>
+    <p><a href="${shopArr[i].shops.end.coupon.pc}">クーポンを獲得する</a></p>
+    <p><a href="${shopArr[i].shops.end.url.pc}">ホームページへ</a></p>
+    `);
+  }
+  $("#route-each-c").html(endhtmlElem);
 
   //placesAPIからデータを取得してくる関数
-  let placeLatLng = await getPlacesData();
+  let placeData = await getPlacesData();
+
+  //GooglePlacesのデータを追加、表示
+  const wayPointsElm = [];
+  for(let i =0; i < shopArr.length; i++){
+    wayPointsElm.push(`
+    <h2>B : ${placeData.name}<h2>
+    <p>住所 : ${placeData.address}</p>
+    <p>評価 : ${placeData.rating}</p>
+    `);
+  };
+
+  $("#route-each-b").html(wayPointsElm);
 
   //上記２つをもとにルート計算、描画を行う関数
-  searchRoute(shopLatLng,placeLatLng);
+  searchRoute(shopData,placeData);
 
 })
 
 
-//   const place_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE";
-  
-  
-//   axios.get(place_url)
-//   .then((res) => {
-//     console.log(res.data.candidates[0].geometry.location);
-//     const placeLatLng = res.data.candidates[0].geometry.location;
-//     placeData.push(placeLatLng);
-//     console.log(placeData);
-//   });
-  
-//   //ホットペッパーにリクエストを送る
-//   axios.get(hot_url)
-//       .then(function (response) {
-//           console.log(response.data.results.shop);
-//           const data = response.data.results.shop;
-//           return data;
-//       })
-//       .then((res) => {
-//         //ホットペッパーから取ってきたデータのうちランダムに2つの緯度経度を取得してlatlng配列に追加
-//         const startNum = Math.floor(Math.random()*5);
-//         const endNum = Math.floor(Math.random()*5 + 5);
-//         console.log(res);
-//         //緯度経度のセットをオブジェクトとして配列に追加
-//         const latlng = [{
-//           lat: res[startNum].lat,
-//           lng: res[startNum].lng
-//         },{
-//           lat: res[endNum].lat,
-//           lng: res[endNum].lng
-//         }];
-        
-//         console.log(latlng);
-//         return latlng;
-//       })
-//       .then((res) => {
-//         console.log(res);
-//         //ホットペッパーの緯度経度の情報
-//         const hotpepper_res = res;
-//         return hotpepper_res;
-//       })
-//       .then((res) => {
-//         const hotpepper_res = res;
-        
-//       })
-//       .then((res) => {
-//         console.log(res);
-//         searchRoute(res.hotpepper,res.placeData);
-//       });

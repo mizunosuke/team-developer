@@ -1,67 +1,135 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Add Map</title>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
-
-    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
     <script type="module" src="./route.js"></script>
-  </head>
-  <body>
-    <h3>My Google Maps Demo</h3>
-    <!-- 開始地点を選択 -->
-    <form action="" id="form">
+    <title>Document</title>
+</head>
 
-      <!-- 料理検索ボックス -->
-      <div>
-        <label for="">
-          <input type="text" name="" id="txtSearch">
-        </label>
-      </div>
+<body>
+    <header></header>
+    <div class="container">
+        <!-- 検索エリア つまり１段目-->
 
-      <!-- 料理ジャンル選択 -->
-      <div>
-        <select name="food_genre" id="foodGenre">
-            <option value="G001">居酒屋</option>
-            <option value="G002">ダイニングバー</option>
-            <option value="G003">創作料理</option>
-            <option value="G004">和食</option>
-            <option value="G005">洋食</option>
-            <option value="G006">イタリアン・フレンチ</option>
-        </select>
-      </div>
-      <div class="select-address">
+        <div id="select-wrapper">
+            <div id="select-title">
+                <h1>LOGO</h1>
+            </div>
+            <div id="select-area">
+                <form>
+                    <select name="location_search" id="locationSearch">場所選ぶ
+                        <option value="福岡">福岡</option>
+                        <option value="広島">広島</option>
+                        <option value="東京">東京</option>
+                        <option value="大阪">大阪</option>
+                        <option value="名古屋">名古屋</option>
+                        <option value="沖縄">沖縄</option>
+                        <option value="北海道">北海道</option>
+                    </select>
+                </form>
+                <form>
+
+                    <select name="food_genre" id="foodGenre">
+                        <option value="G001">居酒屋</option>
+                        <option value="G002">ダイニングバー</option>
+                        <option value="G003">創作料理</option>
+                        <option value="G004">和食</option>
+                        <option value="G005">洋食</option>
+                        <option value="G006">イタリアン・フレンチ</option>
+                    </select>
+
+                </form>
+                <form>
+
+                    <select name="place_search" id="placeSearch">
+                        <option value="映画館">映画館</option>
+                        <option value="美術館">美術館</option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select>
+
+                </form>
+                <form>
+                    <button id="btn">SEARCH</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="img-wrapper">
+            <div id="img-container">
+                <!-- <img src="img/artem-kniaz-0Ad6Q6SQo1Y-unsplash.jpg"> -->
+                <!-- モーダルを開くボタン -->
+                <div class="modal-open">どんな１日にする？ ▼</div>
+                <div class="title-big">タイトル</div>
+            </div>
+        </div>
+        <!-- マップとルートエリア,つまり２段目 -->
+        <div id="map-route">
+            <!-- マップセクション -->
+            <div id="map-wrapper">
+                <div id="map-title">
+                    <p>SHOW MAP</p></MAP>
+                </div>
+                <div id="map-display">
+                    <div id="map">ここにMAPを表示させたい！！！</div>
+                </div>
+            </div>
+            <!-- ルート（プラン）セクション -->
+            <div id="route-wrapper">
+                <div id="route-title">
+                    <p>SHOW ROUTE</p>
+                </div>
+                <div id="route-display">
+                  <!-- クラス名いじってます -->
+                    <div id="route-each-a">A</div>
+                    <div id="route-each-b">B</div>
+                    <div id="route-each-c">C</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-        <!-- 施設検索 -->
-        <div>
-            <label for="">
-              <input type="text" name="" id="input">
-            </label>
-          </div>
-        
-        <button id="btn">検索する</button>
-      </div>
-    </form>
-
-    <!--The div element for the map -->
-    <div id="map"></div>
-
+    <!-- モーダル本体 -->
+    <div class="modal-container">
+        <div class="modal-body">
+            <!-- 閉じるボタン -->
+            <div class="modal-close">×</div>
+            <!-- モーダル内のコンテンツ -->
+            <div class="modal-content">
+                <div></div>
+                <h2>あなたのセレブな１日を作ります</h2>
+                <p>1.まずはあなたの行きたい場所を選択</p>
+                <p>2.気分に合わせ食事のジャンルを選択</p>
+                <p>3.希望のアクティビティを選択</p>
+                <p>4.SEARCHボタンをクリック！</p>
+                <h3>あなたにおすすめの１日ルートを表示</h3>
+            </div>
+        </div>
+    </div>
+    <footer>フッタ</footer>
     <!-- 
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
+         The `defer` attribute causes the callback to execute after the full HTML
+         document has been parsed. For non-blocking uses, avoiding race conditions,
+         and consistent behavior across browsers, consider loading using Promises
+         with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+        -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly&libraries=places"
-      defer
-    ></script>
-    
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly&libraries=places"
+        defer></script>
+
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-  </body>
+
+
+</body>
+
 </html>

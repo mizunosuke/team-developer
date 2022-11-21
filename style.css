@@ -5,3 +5,36 @@
     width: 100%;
     /* The width is the width of the web page */
   }
+
+  #showlist {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justifi-content: center;
+    align-items: center;
+  }
+
+  #showlist p {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 10px;
+  }
+
+  .start_shop {
+    width: 30%;
+    margin: 0 auto;
+    border: 2px solid;
+  }
+
+  .end_shop {
+    width: 30%;
+    margin: 0 auto;
+    border: 2px solid;
+  }
+
+  .facilities {
+    width: 30%;
+    margin: 0 auto;
+    border: 2px solid;
+  }
