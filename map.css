@@ -1,0 +1,307 @@
+/* 別窓でイントロダクション表示 */
+/*モーダルを開くボタン*/
+.modal-open {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 50px;
+    font-weight: bold;
+    color: #fff;
+    background: #000;
+    margin: auto;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    opacity: 85%;
+}
+
+/*モーダル本体の指定 + モーダル外側の背景の指定*/
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 50%);
+    padding: 40px 20px;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    box-sizing: border-box;
+}
+
+/*モーダル本体の擬似要素の指定*/
+.modal-container:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+/*モーダル本体に「active」クラス付与した時のスタイル*/
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*モーダル枠の指定*/
+.modal-body {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 500px;
+    width: 90%;
+}
+
+/*モーダルを閉じるボタンの指定*/
+.modal-close {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -40px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*モーダル内のコンテンツの指定*/
+.modal-content {
+    background: #fff;
+    text-align: left;
+    padding: 30px;
+}
+
+/* ↑ここまで別窓 */
+
+body {
+    width: cover;
+    margin: 0 auto;
+}
+
+/* .container {} */
+
+form {
+    display: flex;
+    align-items: center;
+}
+
+#select-wrapper {
+    z-index: 1;
+    background-color: white;
+    opacity: 70%;
+    width: 100%;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    position: fixed;
+}
+
+#select-area {
+    margin-left: 50px;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#select-data {
+    background-color: rgb(251, 247, 221);
+    display: flex;
+}
+
+
+#select-location {
+    background-color: rgb(220, 244, 252);
+}
+
+
+#select-genre {
+
+    background-color: rgb(241, 220, 252);
+}
+
+/* #btn {} */
+
+#img-wrapper {
+    /* height: 650px; */
+    background-color: black;
+}
+
+#img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.title-big {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 30%;
+    color: white;
+    font-size: 100px;
+}
+
+.title-big img {
+    display: block;
+    width: 60%;
+    height: auto;
+    z-index: 3;
+}
+
+@media screen and (max-width: 500px) {
+    #map-route {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    #map-wrapper {
+        width: 100%;
+    }
+
+    #route-wrapper {
+        width: 100%;
+    }
+}
+
+
+#map-route {
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+}
+
+#map-wrapper {
+    height: 80vh;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#map-title {
+
+    background-color: white;
+    /* border: solid 1px black; */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#map-display {
+    margin: 10px;
+    height: 80vh;
+    border-radius: 10px;
+
+}
+
+#map {
+    /* dorder 変更 */
+    border: solid 2px black;
+    /* すーさん　50px→25px */
+    margin-top: 25px;
+    height: 80vh;
+    border-radius: 10px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
+}
+
+#route-wrapper {
+    height: 80vh;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#route-title {
+
+    /* border: solid 1px black; */
+    height: 50px;
+    /* background-color: darkgray; */
+    display: flex;
+    justify-content: center;
+}
+
+#route-display {
+    /* background-color: rgb(216, 216, 216); */
+    height: 80vh;
+    /* border: solid 1px black; */
+    font-size: 10px;
+    padding: 10px 10px 10px 1px;
+    margin: 25px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* すーさん　下の３つを追加 */
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: solid 2px black;
+}
+
+.route-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.route-each-a {
+    width: 100%;
+    height: 40%;
+    /* すーさん　以下追加 */
+    box-sizing: border-box;
+    border:solid 2px black;
+    /* background-color: rgb(131, 140, 247); */
+}
+
+.route-each-b {
+    width: 100%;
+    height: 20%;
+    /* すーさん　以下追加 */
+        box-sizing: border-box;
+        border: solid 2px black;
+}
+
+.route-each-c {
+    width: 100%;
+    height: 40%;
+    /* すーさん　以下追加 */
+        box-sizing: border-box;
+        border: solid 2px black;
+}
+/* すーさん　pタグを無くした */
+.route-each-a,
+.route-each-b,
+.route-each-c {
+    text-align: left;
+    margin-left: 5px;
+    /* すーさん　font-size 18px 16pxへ */
+    font-size: 16px;     
+}
+/* すーさん　pタグを独立させた */
+p{
+    text-align: left;
+    margin: 5px;
+    font-size: 13px;
+}
+
+
+
+
+/* この中にプランを上から順に表示させる？ */
+.shop-name {
+    font-size: 25px;
+    background-color: rgb(215, 215, 215);
+}

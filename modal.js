@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load",function ()  {
   // モーダルを取得
   const modal = document.getElementById("modal");
   // モーダルを表示するボタンを全て取得
