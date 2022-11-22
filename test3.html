@@ -16,10 +16,13 @@
 
     <div id="gmap" style="height:800px;width:1000px"></div>
 
+
+    <!-- 33.5860037
+    130.3957793 -->
     <script>
         function initMap() {
             var target = document.getElementById('gmap');
-            var current_location = { lat: 33.5860037, lng: 130.3957793 };  //最初の表示をG'sにしている
+            var current_location = { lat: 33.58628322989272, lng: 130.3960128298927 };  //最初の表示をG'sにしている
             var map = new google.maps.Map(document.getElementById('gmap'), {
                 center: current_location,
                 zoom: 16
@@ -43,7 +46,7 @@
                 infowindow.open(map);
             }
 
-            //ブラウザが対応している場合、position にユーザーの位置情報が入る
+            // ブラウザが対応している場合、position にユーザーの位置情報が入る
             navigator.geolocation.getCurrentPosition(function (position) {
                 //position から緯度経度（ユーザーの位置）のオブジェクトを作成し変数に代入
                 var pos = {
@@ -67,8 +70,8 @@
 
                 service.nearbySearch({
                     location: pos,  //検索するロケーション
-                    radius: 1000,  //検索する半径（メートル）
-                    name: ['映画館']  //nameで検索。文字列またはその配列で指定
+                    radius: 500000,  //検索する半径（メートル）
+                    name: ['法務局']  //nameで検索。文字列またはその配列で指定
                     //キーワードで検索する場合は name:'レストラン' や ['レストラン','中華'] のように指定 typeもある
 
 
@@ -77,12 +80,14 @@
                 //コールバック関数には results, status が渡されるので、status により条件分岐
                 function callback(results, status) {
                     console.log(results);
+                    // console.log(results[0].place_id);
                     // status は以下のような定数で判定（OK の場合は results が配列で返ってきます）
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         //results の数だけ for 文で繰り返し処理
                         for (var i = 0; i < results.length; i++) {
                             //createMarker() はマーカーを生成する関数（別途定義）
                             createMarker(results[i]);
+                            console.log(results[i].place_id);
                         }
                     }
                 }
