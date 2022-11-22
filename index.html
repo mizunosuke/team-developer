@@ -29,25 +29,11 @@
                         <option value="広島">広島</option>
                         <option value="東京">東京</option>
                         <option value="大阪">大阪</option>
-                        <option value="名古屋">名古屋</option>
                         <option value="沖縄">沖縄</option>
                     </select>
                     <select id="child">
                         <option disabled selected value="">エリアを選ぶ</option>
                     </select>
-                    <!-- <select name="location_search" id="locationSearch"> -->
-                    <!-- <option disabled selected>県を選ぶ</option>
-                    <option value="福岡">福岡</option>
-                    <option value="広島">広島</option>
-                    <option value="東京">東京</option>
-                    <option value="大阪">大阪</option>
-                    <option value="沖縄">沖縄</option>
-                    <option value="北海道">北海道</option>
-                    </select> -->
-                    <!-- ２つ目のセレクトボックス、地域を選ぶ -->
-                    <!-- <select name="location-option" id="location-option">
-                        <option disabled selected>地域を選ぶ</option>
-                    </select> -->
                 </form>
                 <form>
 
@@ -66,10 +52,10 @@
                     <select name="place_search" id="placeSearch">
                         <option value="映画館">映画館</option>
                         <option value="美術館">美術館</option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                        <option value="水族館">水族館</option>
+                        <option value="動物園">動物園</option>
+                        <option value="プラネタリウム">プラネタリウム</option>
+                        <option value="カフェ">カフェ</option>
                     </select>
 
                 </form>
@@ -121,31 +107,31 @@
             <div class="modal-close">×</div>
             <!-- モーダル内のコンテンツ -->
             <div class="modal-content">
-                <div></div>
+                <!-- <div></div>
                 <h2>あなたのセレブな１日を作ります</h2>
                 <p>1.まずはあなたの行きたい場所を選択</p>
                 <p>2.気分に合わせ食事のジャンルを選択</p>
                 <p>3.希望のアクティビティを選択</p>
                 <p>4.SEARCHボタンをクリック！</p>
                 <h3>あなたにおすすめの１日ルートを表示</h3>
+            </div> -->
             </div>
         </div>
-    </div>
-    <footer>フッタ</footer>
+        <footer>フッタ</footer>
 
 
-    <!-- 
+        <!-- 
          The `defer` attribute causes the callback to execute after the full HTML
          document has been parsed. For non-blocking uses, avoiding race conditions,
          and consistent behavior across browsers, consider loading using Promises
          with https://www.npmjs.com/package/@googlemaps/js-api-loader.
         -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly&libraries=places"
-        defer></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE&callback=initMap&v=weekly&libraries=places"
+            defer></script>
 
-    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 </body>

@@ -45,9 +45,10 @@ function initMap() {
 //------------ホットペッパーから緯度経度をとってくる関数------------
 async function getHotpepperData() {
     const txtSearch = $('#locationSearch').val();
-    // const smallAreaSearch = $('smallArea[0]');
+    const smallAreaSearch = $('#child').val();
     const genreSearch = $('#foodGenre').val();
-    const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${txtSearch}&range=5&order=4&genre=${genreSearch}&format=json`;
+    const findlocation = smallAreaSearch + "&" + txtSearch
+    const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${findlocation}&range=5&order=4&genre=${genreSearch}&format=json`;
 
     console.log(hot_url);
     let getData = await axios.get(hot_url);
@@ -230,7 +231,7 @@ $('#btn').on('click', async function (e) {
     const starthtmlElem = [];
     for (let i = 0; i < shopArr.length; i++) {
         starthtmlElem.push(`
-    <h2>A : ${shopArr[i].shops.start.name}<h2>
+    <h2 id="shop-name">A : ${shopArr[i].shops.start.name}<h2>
     <p>${shopArr[i].shops.start.access}</p>
     <p>${shopArr[i].shops.start.address}</p>
     <p>平均予算 : ${shopArr[i].shops.start.budget.name}</p>
@@ -245,7 +246,7 @@ $('#btn').on('click', async function (e) {
     const endhtmlElem = [];
     for (let i = 0; i < shopArr.length; i++) {
         endhtmlElem.push(`
-    <h2>C : ${shopArr[i].shops.end.name}<h2>
+    <h2 id="shop-name">C : ${shopArr[i].shops.end.name}<h2>
     <p>${shopArr[i].shops.end.access}</p>
     <p>${shopArr[i].shops.end.address}</p>
     <p>平均予算 : ${shopArr[i].shops.end.budget.name}</p>
@@ -263,7 +264,7 @@ $('#btn').on('click', async function (e) {
     const wayPointsElm = [];
     for (let i = 0; i < shopArr.length; i++) {
         wayPointsElm.push(`
-    <h2>B : ${placeData.name}<h2>
+    <h2 id="shop-name">B : ${placeData.name}<h2>
     <p>住所 : ${placeData.address}</p>
     <p>評価 : ${placeData.rating}</p>
     `);
@@ -304,40 +305,6 @@ $(function () {
     });
 });
 
-// セレクトボックス県→地域
-// 県格納
-// const selectArea =
-// {
-//     "福岡": ["博多", "天神", "中洲", "糸島"],
-//     "広島": ["市内", "天神", "中洲", "糸島"],
-//     "東京": ["博多", "天神", "中洲", "糸島"],
-//     "大阪": ["博多", "天神", "中洲", "糸島"],
-//     "沖縄": ["博多", "天神", "中洲", "糸島"],
-//     "北海道": ["博多", "天神", "中洲", "糸島"]
-// };
-
-// // 選択されたジャンルを受け取り処理
-// function setOptions(selectedPref) {
-//     const selectOptionArea = document.getElementById('location-option');
-//     selectOptionArea.disabled = false;
-
-//     selectArea[selectedPref].forEach((menu) => {
-//         const option = document.createElement('option');
-//         option.value = menu;
-//         option.innerHTML = menu;
-//         selectOptionArea.appendChild(option);
-//         console.log(menu);
-//     });
-//     console.log(selectOptionArea);
-
-// }
-
-// // ２　県が選択されたら処理
-// const selectPref = document.getElementById('locationSearch');
-
-// selectPref.addEventListener('change', (e) => {
-//     setOptions(e.target.value);
-// })
 
 
 // セレクトボックス・エリア大分類→小分類への表示
@@ -345,6 +312,8 @@ var area = {
     福岡: [
         '天神',
         '博多',
+        '糸島',
+        '西新',
     ],
     広島: [
         '広島市',
@@ -353,7 +322,7 @@ var area = {
     東京: [
         '渋谷',
         '池袋',
-        '東京',
+        '新宿',
     ],
     大阪: [
         '梅田',
@@ -388,10 +357,10 @@ $('#locationSearch').on('change', function () {
         $('#child').html(noValue); //保存された最初の状態に戻す
     }
 
-    $('#btn').on('click', function () {
-        // const local = $('#selectedSmallArea').val;
-        console.log(smallArea[i]);
-    });
+    // $('#btn').on('click', function () {
+    //     const local = $('#selectedSmallArea').val;
+    //     console.log(local);
+    // });
 
     // → ４５行目へ
 });
