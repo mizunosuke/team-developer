@@ -249,8 +249,18 @@ $('#btn').on('click', async function(e) {
     <p>${shopArr[i].shops.start.address}</p>
     <p>平均予算 : ${shopArr[i].shops.start.budget.name}</p>
     <p>クレジットカード利用 : ${shopArr[i].shops.start.card}</p>
-    <p><a href="${shopArr[i].shops.start.coupon.pc}" target="_blank">クーポンを獲得する</a></p>
-    <p><a href="${shopArr[i].shops.start.url.pc}" target="_blank">ホームページへ</a></p>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.start.coupon.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">食べログクーポン券</span></div>
+      <div class="right"><span>お得</span></div>
+      </a>
+    </div>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.start.url.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">ホームページへ移動</span></div>
+      <div class="right"><span>HP</span></div>
+      </a>
+    </div>
     `);
   }
   $(".route-each-a").html(starthtmlElem);
@@ -264,8 +274,18 @@ $('#btn').on('click', async function(e) {
     <p>${shopArr[i].shops.end.address}</p>
     <p>平均予算 : ${shopArr[i].shops.end.budget.name}</p>
     <p>クレジットカード利用 : ${shopArr[i].shops.end.card}</p>
-    <p>< href="${shopArr[i].shops.end.coupon.pc}" target="_blank">クーポンを獲得する</a></p>
-    <p><a href="${shopArr[i].shops.end.url.pc}" target="_blank">ホームページへ</a></p>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.end.coupon.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">食べログクーポン券</span></div>
+    <div class="right"><span>お得</span></div>
+  </a>
+</div>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.end.url.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">ホームページへ移動</span></div>
+      <div class="right"><span>HP</span></div>
+      </a>
+    </div>
     `);
   }
   $(".route-each-c").html(endhtmlElem);
