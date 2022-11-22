@@ -9,10 +9,11 @@ let placeData = [];
 
 
 
+
 //initialize関数
 function initMap() {
   var latlng = new google.maps.LatLng(35.681382,139.766084);//東京駅
-  
+
 
   //表示のオプションを設定
   var myOptions = {
@@ -44,9 +45,16 @@ function initMap() {
 
 //------------ホットペッパーから緯度経度をとってくる関数------------
 async function getHotpepperData() {
+  //都道府県名
   const txtSearch = $('#locationSearch').val();
+  //地域名
+  const smallArea = $("#child").val();
+
+  const getArea = txtSearch + " " + smallArea;
+
   const genreSearch = $('#foodGenre').val();
-  const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${txtSearch}&range=5&order=4&genre=${genreSearch}&format=json`;
+  console.log(smallArea);
+  const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${getArea}&range=5&order=4&genre=${genreSearch}&format=json`;
 
   let getData = await axios.get(hot_url);
   console.log(getData.data.results.shop);
@@ -148,7 +156,7 @@ async function getPlacesData() {
 
 
 //--------------------ルートを検索する関数--------------------
-function searchRoute(shop,place) {
+async function searchRoute(shop,place) {
 
   //スタート地点の緯度経度をoriginに設定
   const startLatLng = shop.latlng.start;
@@ -167,7 +175,7 @@ function searchRoute(shop,place) {
   };
 
   //新しいインスタンスを作成
-  directionsService = new google.maps.DirectionsService();
+  directionsService = await new google.maps.DirectionsService();
   //インスタンス作成時の設定・開始地点やゴール地点など
   var request = {
       origin: startLatLng,
@@ -183,17 +191,19 @@ function searchRoute(shop,place) {
   };
 
   //route関数の呼び出し
-  directionsService.route(request, function(response, status){
+  let getRoute = await directionsService.route(request, function(response, status){
       if (status == google.maps.DirectionsStatus.OK){
         console.log(response);
         console.log(status);
           directionsDisplay.setDirections(response);
           directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+          return response.routes[0];
       }
       // overview_pathを表示する
       for (var i = 0; i < response.routes.length; i++) {
           var r = response.routes[i];
           for (var j = 0; j < r.overview_path.length; j++) {
+              var pinImage_red = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
               var latlng = r.overview_path[j];
               marker = new google.maps.Marker({
                   position: latlng,
@@ -204,8 +214,12 @@ function searchRoute(shop,place) {
           }
       }
   });
-  map = new google.maps.Map(document.getElementById("map"),response);
+
+
+  map = await new google.maps.Map(document.getElementById("map"),response);
   directionsDisplay.setMap(map);
+
+  return getRoute;
 }
 
 
@@ -216,6 +230,8 @@ window.initMap = initMap;
 //検索ボタンクリックで発火
 $('#btn').on('click', async function(e) {
   e.preventDefault();
+  //クリック時に画像を隠す
+  $(".route-image").fadeOut();
 
   //hotpepperAPIからデータを取得する関数
   let shopData = await getHotpepperData();
@@ -228,7 +244,7 @@ $('#btn').on('click', async function(e) {
   const starthtmlElem = [];
   for(let i =0; i < shopArr.length; i++){
     starthtmlElem.push(`
-    <h2>A : ${shopArr[i].shops.start.name}<h2>
+    <h2 class="shop-name">A : ${shopArr[i].shops.start.name}<h2>
     <p>${shopArr[i].shops.start.access}</p>
     <p>${shopArr[i].shops.start.address}</p>
     <p>平均予算 : ${shopArr[i].shops.start.budget.name}</p>
@@ -237,13 +253,13 @@ $('#btn').on('click', async function(e) {
     <p><a href="${shopArr[i].shops.start.url.pc}">ホームページへ</a></p>
     `);
   }
-  $("#route-each-a").html(starthtmlElem);
+  $(".route-each-a").html(starthtmlElem);
 
   //2件目の情報を追加
   const endhtmlElem = [];
   for(let i =0; i < shopArr.length; i++){
     endhtmlElem.push(`
-    <h2>C : ${shopArr[i].shops.end.name}<h2>
+    <h2 class="shop-name">C : ${shopArr[i].shops.end.name}<h2>
     <p>${shopArr[i].shops.end.access}</p>
     <p>${shopArr[i].shops.end.address}</p>
     <p>平均予算 : ${shopArr[i].shops.end.budget.name}</p>
@@ -252,7 +268,7 @@ $('#btn').on('click', async function(e) {
     <p><a href="${shopArr[i].shops.end.url.pc}">ホームページへ</a></p>
     `);
   }
-  $("#route-each-c").html(endhtmlElem);
+  $(".route-each-c").html(endhtmlElem);
 
   //placesAPIからデータを取得してくる関数
   let placeData = await getPlacesData();
@@ -261,17 +277,112 @@ $('#btn').on('click', async function(e) {
   const wayPointsElm = [];
   for(let i =0; i < shopArr.length; i++){
     wayPointsElm.push(`
-    <h2>B : ${placeData.name}<h2>
+    <h2 class="shop-name">B : ${placeData.name}<h2>
     <p>住所 : ${placeData.address}</p>
     <p>評価 : ${placeData.rating}</p>
     `);
   };
 
-  $("#route-each-b").html(wayPointsElm);
+  $(".route-each-b").html(wayPointsElm);
 
   //上記２つをもとにルート計算、描画を行う関数
-  searchRoute(shopData,placeData);
-
+  let traveldata = await searchRoute(shopData,placeData);
+  console.log(traveldata);
 })
 
+// セレクトボックス県→地域
+// 県格納
 
+// セレクトボックス・エリア大分類→小分類への表示
+var area = {
+  福岡: [
+      '天神',
+      '博多',
+  ],
+  広島: [
+      '広島市',
+      '呉市',
+  ],
+  東京: [
+      '渋谷',
+      '池袋',
+      '東京',
+  ],
+  大阪: [
+      '梅田',
+      '心斎橋',
+      'なんば',
+  ],
+  名古屋: [
+      '名古屋',
+      '名古屋',
+      '名古屋',
+  ],
+  沖縄: [
+      '那覇市',
+      '糸満市',
+      '名護市',
+  ],
+};
+
+var noValue = $('#child').html(); //#childの最初の状態を保存
+
+$('#locationSearch').on('change', function () {
+    var pref = $(this).val(); //選択された項目のvalueを取得
+    if (pref) { //valueに何か値が入っていた場合
+        var smallArea = area[pref]; //リストからカテゴリに登録された製品の配列を取得
+        $('#child').html('');
+        var option; //地域を出す文字列
+        for (var i = 0; i < smallArea.length; i++) {
+            option = '<option id="selectedSmallArea" value="' + smallArea[i] + '">' + smallArea[i] + '</option>';
+            $('#child').append(option);
+        }
+    } else { //valueに何も値が入っていない場合
+        $('#child').html(noValue); //保存された最初の状態に戻す
+    }
+
+    $('#btn').on('click', function () {
+        // const local = $('#selectedSmallArea').val;
+    });
+
+    // → ４５行目へ
+});
+
+
+
+//ここからモーダル
+window.addEventListener("DOMContentLoaded", () => {
+  // モーダルを取得
+  const modal = document.getElementById("modal");
+  // モーダルを表示するボタンを全て取得
+  const openModalBtn = document.querySelectorAll(".js-open-modal");
+  // モーダルを閉じるボタンを全て取得
+  const closeModalBtn = document.querySelectorAll(".js-close-modal");
+
+  // Swiperの設定
+  const swiper = new Swiper(".swiper", {
+      loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    spaceBetween: 30,
+  });
+
+  // モーダルを表示するボタンをクリックしたとき
+  openModalBtn.forEach((openModalBtn) => {
+    openModalBtn.addEventListener("click", () => {
+      // data-slide-indexに設定したスライド番号を取得
+      const modalIndex = openModalBtn.dataset.slideIndex;
+      swiper.slideTo(modalIndex);
+      modal.classList.add("is-active");
+    });
+  });
+
+  // モーダルを閉じるボタンをクリックしたとき
+  closeModalBtn.forEach((closeModalBtn) => {
+    closeModalBtn.addEventListener("click", () => {
+      modal.classList.remove("is-active");
+    });
+  });
+});
