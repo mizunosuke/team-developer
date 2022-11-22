@@ -23,19 +23,31 @@
             </div>
             <div id="select-area">
                 <form>
-                    <select name="location_search" id="locationSearch">
-                        <option disabled selected>県を選ぶ</option>
+                    <select id="locationSearch">
+                        <option disabled selected value="">県を選ぶ</option>
                         <option value="福岡">福岡</option>
                         <option value="広島">広島</option>
                         <option value="東京">東京</option>
                         <option value="大阪">大阪</option>
+                        <option value="名古屋">名古屋</option>
                         <option value="沖縄">沖縄</option>
-                        <option value="北海道">北海道</option>
                     </select>
+                    <select id="child">
+                        <option disabled selected value="">エリアを選ぶ</option>
+                    </select>
+                    <!-- <select name="location_search" id="locationSearch"> -->
+                    <!-- <option disabled selected>県を選ぶ</option>
+                    <option value="福岡">福岡</option>
+                    <option value="広島">広島</option>
+                    <option value="東京">東京</option>
+                    <option value="大阪">大阪</option>
+                    <option value="沖縄">沖縄</option>
+                    <option value="北海道">北海道</option>
+                    </select> -->
                     <!-- ２つ目のセレクトボックス、地域を選ぶ -->
-                    <select name="location-option" id="location-option">
+                    <!-- <select name="location-option" id="location-option">
                         <option disabled selected>地域を選ぶ</option>
-                    </select>
+                    </select> -->
                 </form>
                 <form>
 
@@ -120,6 +132,8 @@
         </div>
     </div>
     <footer>フッタ</footer>
+
+
     <!-- 
          The `defer` attribute causes the callback to execute after the full HTML
          document has been parsed. For non-blocking uses, avoiding race conditions,

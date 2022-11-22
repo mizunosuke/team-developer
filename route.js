@@ -45,9 +45,11 @@ function initMap() {
 //------------ホットペッパーから緯度経度をとってくる関数------------
 async function getHotpepperData() {
     const txtSearch = $('#locationSearch').val();
+    // const smallAreaSearch = $('smallArea[0]');
     const genreSearch = $('#foodGenre').val();
     const hot_url = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=bb80428ae528710b&address=${txtSearch}&range=5&order=4&genre=${genreSearch}&format=json`;
 
+    console.log(hot_url);
     let getData = await axios.get(hot_url);
     console.log(getData.data.results.shop);
     let shopData = getData.data.results.shop;
@@ -304,46 +306,92 @@ $(function () {
 
 // セレクトボックス県→地域
 // 県格納
-const selectArea =
-{
-    "福岡": ["博多", "天神", "中洲", "糸島"],
-    "広島": ["市内", "天神", "中洲", "糸島"],
-    "東京": ["博多", "天神", "中洲", "糸島"],
-    "大阪": ["博多", "天神", "中洲", "糸島"],
-    "沖縄": ["博多", "天神", "中洲", "糸島"],
-    "北海道": ["博多", "天神", "中洲", "糸島"]
+// const selectArea =
+// {
+//     "福岡": ["博多", "天神", "中洲", "糸島"],
+//     "広島": ["市内", "天神", "中洲", "糸島"],
+//     "東京": ["博多", "天神", "中洲", "糸島"],
+//     "大阪": ["博多", "天神", "中洲", "糸島"],
+//     "沖縄": ["博多", "天神", "中洲", "糸島"],
+//     "北海道": ["博多", "天神", "中洲", "糸島"]
+// };
+
+// // 選択されたジャンルを受け取り処理
+// function setOptions(selectedPref) {
+//     const selectOptionArea = document.getElementById('location-option');
+//     selectOptionArea.disabled = false;
+
+//     selectArea[selectedPref].forEach((menu) => {
+//         const option = document.createElement('option');
+//         option.value = menu;
+//         option.innerHTML = menu;
+//         selectOptionArea.appendChild(option);
+//         console.log(menu);
+//     });
+//     console.log(selectOptionArea);
+
+// }
+
+// // ２　県が選択されたら処理
+// const selectPref = document.getElementById('locationSearch');
+
+// selectPref.addEventListener('change', (e) => {
+//     setOptions(e.target.value);
+// })
+
+
+// セレクトボックス・エリア大分類→小分類への表示
+var area = {
+    福岡: [
+        '天神',
+        '博多',
+    ],
+    広島: [
+        '広島市',
+        '呉市',
+    ],
+    東京: [
+        '渋谷',
+        '池袋',
+        '東京',
+    ],
+    大阪: [
+        '梅田',
+        '心斎橋',
+        'なんば',
+    ],
+    名古屋: [
+        '名古屋',
+        '名古屋',
+        '名古屋',
+    ],
+    沖縄: [
+        '那覇市',
+        '糸満市',
+        '名護市',
+    ],
 };
 
-// 選択されたジャンルを受け取り処理
-function setOptions(selectedPref) {
-    const selectOptionArea = document.getElementById('location-option');
-    selectOptionArea.disabled = false;
+var noValue = $('#child').html(); //#childの最初の状態を保存
 
-    selectArea[selectedPref].forEach((menu) => {
-        const option = document.createElement('option');
-        option.value = menu;
-        option.innerHTML = menu;
-        selectOptionArea.appendChild(option);
-        console.log(menu);
+$('#locationSearch').on('change', function () {
+    var pref = $(this).val(); //選択された項目のvalueを取得
+    if (pref) { //valueに何か値が入っていた場合
+        var smallArea = area[pref]; //リストからカテゴリに登録された製品の配列を取得
+        $('#child').html('');
+        var option; //地域を出す文字列
+        for (var i = 0; i < smallArea.length; i++) {
+            option = '<option id="selectedSmallArea" value="' + smallArea[i] + '">' + smallArea[i] + '</option>';
+            $('#child').append(option);
+        }
+    } else { //valueに何も値が入っていない場合
+        $('#child').html(noValue); //保存された最初の状態に戻す
+    }
+
+    $('#btn').on('click', function () {
+        // const local = $('#selectedSmallArea').val;
+        console.log(smallArea[i]);
     });
-    console.log(selectOptionArea);
 
-    $("#btn").addEventListener("reset", () => {
-        const option01 = $("#location-option").val();
-        // const option02 = $("#location-option").val();
-        // const option03 = $("#location-option").val();
-        option01 = "";
-        // option02 = "";
-        // option03 = "";
-    });
-}
-
-// ２　県が選択されたら処理
-const selectPref = document.getElementById('locationSearch');
-
-selectPref.addEventListener('change', (e) => {
-    setOptions(e.target.value);
-})
-
-
-
+    // → ４５行目へ
+});
