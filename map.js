@@ -249,8 +249,8 @@ $('#btn').on('click', async function(e) {
     <p>${shopArr[i].shops.start.address}</p>
     <p>平均予算 : ${shopArr[i].shops.start.budget.name}</p>
     <p>クレジットカード利用 : ${shopArr[i].shops.start.card}</p>
-    <p><a href="${shopArr[i].shops.start.coupon.pc}">クーポンを獲得する</a></p>
-    <p><a href="${shopArr[i].shops.start.url.pc}">ホームページへ</a></p>
+    <p><a href="${shopArr[i].shops.start.coupon.pc}" target="_blank">クーポンを獲得する</a></p>
+    <p><a href="${shopArr[i].shops.start.url.pc}" target="_blank">ホームページへ</a></p>
     `);
   }
   $(".route-each-a").html(starthtmlElem);
@@ -264,8 +264,8 @@ $('#btn').on('click', async function(e) {
     <p>${shopArr[i].shops.end.address}</p>
     <p>平均予算 : ${shopArr[i].shops.end.budget.name}</p>
     <p>クレジットカード利用 : ${shopArr[i].shops.end.card}</p>
-    <p><a href="${shopArr[i].shops.end.coupon.pc}">クーポンを獲得する</a></p>
-    <p><a href="${shopArr[i].shops.end.url.pc}">ホームページへ</a></p>
+    <p>< href="${shopArr[i].shops.end.coupon.pc}" target="_blank">クーポンを獲得する</a></p>
+    <p><a href="${shopArr[i].shops.end.url.pc}" target="_blank">ホームページへ</a></p>
     `);
   }
   $(".route-each-c").html(endhtmlElem);
