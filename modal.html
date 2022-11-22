@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>モーダル</title>
+    <!-- Swiper CDN読み込み いくつかスライドさせる方法がありましたがSwiperを使いました-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <!-- CSS読み込み -->
+    <link rel="stylesheet" href="./modal.css" />
+    <!-- JS読み込み -->
+    <script src="./modal.js"></script>
+</head>
+
+<body>
+    <!-- コンテンツ modalを開くためのbutton設置-->
+    <div class="content">
+        <button class="js-open-modal" data-slide-index="1">使い方の説明です　クリックしてください</button>
+    </div>
+
+    <!-- モーダル -->
+    <div class="modal" id="modal">
+        <div class="modal__overlay js-close-modal"></div>
+        <div class="modal__content">
+            <button class="modal__close-btn js-close-modal" aria-label="閉じる">×</button>
+            <!-- スライダー -->
+            <div class="swiper modal__slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide modal__slide">説明文
+                        <p>このアプリはあなたの困った！を解決します
+                            例えばこんなシーンです　→
+                        </p>
+                    </div>
+                    <div class="swiper-slide modal__slide"><a href="./img/lover.jpg"><img src="./img/lover.jpg"
+                                width="100%" height="100%"></a>
+                        恋人とのデートプランをご提案します</div>
+                    <div class="swiper-slide modal__slide"><a href="./img/family.jpg"><img src="./img/family.jpg"
+                                width="100%" height="100%"></a>この週末、家族とはどこに行きますか？</div>
+                    <div class="swiper-slide modal__slide"><a href="./img/together.jpg"><img src="./img/together.jpg"
+                                width="100%" height="100%">友達との会食はいつもと違うところに行きませんか？</div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
