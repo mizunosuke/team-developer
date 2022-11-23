@@ -1,3 +1,6 @@
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
+
 /* 別窓でイントロダクション表示 */
 /*モーダルを開くボタン*/
 .modal-open {
@@ -87,11 +90,16 @@ body {
   margin: 0 auto;
 }
 
-.container {}
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 form {
   display: flex;
   align-items: center;
+  width:100%;
 }
 
 #select-wrapper {
@@ -105,12 +113,90 @@ form {
   position: fixed;
 }
 
-#select-area {
-  margin-left: 50px;
-  width: 80%;
-  display: flex;
-  justify-content: space-around;
+/* ここから下結構いじってます */
+
+#select-title {
+  width: 15%;
+  margin: 0;
 }
+
+#select-area {
+  width: 85%;
+  display: flex;
+  justify-content: center;
+}
+
+.locationsearch {
+  width: 25%;
+}
+
+#locationSearch {
+    width: 55%;
+    height: 34px;
+    border: 3px solid #a9a9a9;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.child {
+  width: 25%;
+}
+
+#child {
+    width: 55%;
+    height: 34px;
+    border: 3px solid #a9a9a9;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;  
+}
+
+.foodgenre {
+  width: 25%;
+}
+
+#foodGenre {
+    width: 55%;
+    height: 34px;
+    border: 2px solid #00008b;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.placesearch {
+  width: 25%;
+}
+
+#placeSearch {
+    width: 55%;
+    height: 34px;
+    border: 3px solid #a9a9a9;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.search-btn {
+  width: 20%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.search-btn button {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.search-btn a {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+
 
 #select-data {
   background-color: rgb(251, 247, 221);
@@ -163,6 +249,8 @@ img {
   z-index: 3;
 }
 
+/* 一旦ここまでいじった */
+
 @media screen and (max-width: 500px) {
   #map-route {
       display: flex;
@@ -187,7 +275,7 @@ img {
 }
 
 #map-wrapper {
-  height: 80vh;
+  height: 88vh;
   width: 50%;
   margin: 0 auto;
 }
@@ -203,15 +291,15 @@ img {
 
 #map-display {
   margin: 10px;
-  height: 80vh;
+  height: 88vh;
   border-radius: 10px;
 
 }
 
 #map {
   border: solid 1px grey;
-  margin-top: 50px;
-  height: 80vh;
+  margin-top: 36px;
+  height: 88vh;
   border-radius: 10px;
   /* The height is 400 pixels */
   width: 100%;
@@ -219,7 +307,7 @@ img {
 }
 
 #route-wrapper {
-  height: 80vh;
+  height: 88vh;
   width: 50%;
 }
 
@@ -234,7 +322,7 @@ img {
 
 #route-display {
   /* background-color: rgb(216, 216, 216); */
-  height: 80vh;
+  height: 88vh;
   /* border: solid 1px black; */
   font-size: 10px;
   padding: 10px;
@@ -244,10 +332,12 @@ img {
   justify-content: center;
 }
 
-.route-image {
+.route-image img{
+  margin: 0 auto;
   display: block;
-  width: 90%;
+  width: 100%;
   height: auto;
+  border-radius:15px;
 }
 
 .route-each-a {
@@ -275,4 +365,219 @@ img {
 .shop-name {
   font-size: 25px;
   background-color: rgb(215, 215, 215);
+}
+
+/* Q&Aボタン部部分デザイン */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-custom01 {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  border-radius: 0.75rem;
+}
+
+a.btn-custom01:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  content: "";
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: translate3d(0, 0.75rem, -1rem);
+  transform: translate3d(0, 0.75rem, -1rem);
+
+  border: 2px solid #000;
+  border-radius: inherit;
+  background: #ccc100;
+  -webkit-box-shadow: 0 0.6rem 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.6rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom01:after {
+  font-family: "Font Awesome 5 Free";
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 1;
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: 1.5rem;
+  margin: 0;
+  padding: 0;
+  content: "\f0e0";
+}
+
+.btn-custom01-front {
+  position: relative;
+  display: block;
+  padding: 1.5rem 5rem 1.5rem 5rem;
+
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 2px solid #000;
+  border-radius: inherit;
+  background: #fff100;
+}
+
+.fa-position-left {
+  position: absolute;
+  top: calc(50% - 0.5em);
+  left: 1rem;
+}
+
+.fa-position-right {
+  position: absolute;
+  top: calc(50% - 0.5em);
+  right: 1rem;
+}
+
+a.btn-custom01:hover {
+  -webkit-transform: translate(0, 0.25rem);
+  transform: translate(0, 0.25rem);
+  background: #fff100;
+}
+
+a.btn-custom01:hover:before {
+  -webkit-transform: translate3d(0, 0.5rem, -1rem);
+  transform: translate3d(0, 0.5rem, -1rem);
+  -webkit-box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom01:hover:after {
+  content: "\f2b6";
+}
+
+a.btn-custom01:active {
+  -webkit-transform: translate(0rem, 0.75rem);
+  transform: translate(0rem, 0.75rem);
+}
+
+a.btn-custom01:active:before {
+  -webkit-transform: translate3d(0, 0, -1rem);
+  transform: translate3d(0, 0, -1rem);
+  -webkit-box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom01:active:after {
+  content: "\f2b6";
+}
+
+.modal-btn {
+}
+
+
+/* SEARCHボタンCSS */
+a.btn-flat {
+  overflow: hidden;
+  padding: 1.5rem 6rem;
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+a.btn-flat span {
+  position: relative;
+  font-size: 20px;
+}
+
+a.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 150%;
+  height: 500%;
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-98%) translateY(-70%) rotate(135deg);
+  transform: translateX(-98%) translateY(-70%) rotate(135deg);
+  background: #fff100;
+}
+
+a.btn-flat:hover:before {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(135deg);
+  transform: translateX(-9%) translateY(-25%) rotate(135deg);
+}
+
+/* フッター 鬼塚付け加えた*/
+footer {
+  margin-top: 100px;
+}
+
+.tree {
+  width: 100px;
+  margin-right: 40px;
+}
+
+.footer-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100px;
+  width: 100%;
+  background: linear-gradient(rgb(110, 110, 110), rgb(191, 188, 179));
+}
+
+.footer-wrapper p {
+  font-size: 20px;
+}
+
+.sns {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  margin-left: 40px;
+}
+
+.sns img {
+  padding-right: 10px;
+}
+
+
+.footer-wrapper p {
+  z-index: 1;
 }

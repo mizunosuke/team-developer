@@ -133,7 +133,8 @@ async function getPlacesData() {
   //inputタグから入力された内容を取得
   const searchText = $("#locationSearch").val();
   const txtSearch = $('#placeSearch').val();
-  const inputText = searchText + " " + txtSearch;
+  const searchArea = $("#child").val();
+  const inputText = searchText + " " + searchArea + " " + txtSearch;
   const place_url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Cgeometry&input=${inputText}&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE`;
 
   //APIにリクエスト
@@ -298,15 +299,54 @@ var area = {
   福岡: [
       '天神',
       '博多',
+      "大名",
+      "糸島",
+      "北区",
+      "中央区",
+      "南区",
+      "西区",
+      "東区",
+      "小倉",
+      "飯塚",
+      "北九州",
+      "唐津",
   ],
   広島: [
-      '広島市',
-      '呉市',
+      '広島駅',
+      '呉',
+      "中区",
+      "福山",
+      "廿日市",
+      "尾道",
+      "安佐",
+      "江田島",
+      "東広島",
+      "宇品",
+      "西区",
+      "南区",
   ],
   東京: [
       '渋谷',
       '池袋',
-      '東京',
+      '原宿',
+      "品川",
+      "上野",
+      "秋葉原",
+      "蒲田",
+      "中野",
+      "杉並",
+      "八王子",
+      "新宿",
+      "恵比寿",
+      "五反田",
+      "目黒",
+      "田町",
+      "代々木",
+      "新大久保",
+      "巣鴨",
+      "葛飾",
+      "豊洲",
+      "東京駅"
   ],
   大阪: [
       '梅田',
