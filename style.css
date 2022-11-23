@@ -1,5 +1,6 @@
 @import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
-
+/* すーさんこのした一式追加クーポンのCSS */
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
 
 /* 別窓でイントロダクション表示 */
 /*モーダルを開くボタン*/
@@ -118,6 +119,15 @@ form {
 #select-title {
     width: 15%;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#select-title button {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
 }
 
 #select-area {
@@ -133,7 +143,7 @@ form {
 #locationSearch {
     width: 55%;
     height: 34px;
-    border: 3px solid #a9a9a9;
+    border: 3px solid #00008b;
     font-size: 15px;
     font-weight: bold;
     box-shadow: 2px 7px 3px;
@@ -146,7 +156,7 @@ form {
 #child {
     width: 55%;
     height: 34px;
-    border: 3px solid #a9a9a9;
+    border: 3px solid #00008b;
     font-size: 15px;
     font-weight: bold;
     box-shadow: 2px 7px 3px;
@@ -172,7 +182,7 @@ form {
 #placeSearch {
     width: 55%;
     height: 34px;
-    border: 3px solid #a9a9a9;
+    border: 3px solid #00008b;
     font-size: 15px;
     font-weight: bold;
     box-shadow: 2px 7px 3px;
@@ -195,6 +205,10 @@ form {
     display: inline-block;
     width: 100%;
     margin: 0;
+}
+
+.search-btn span {
+    color: white;
 }
 
 
@@ -249,6 +263,10 @@ img {
     z-index: 3;
 }
 
+h1{
+    font-size: 40px;
+}
+
 /* 一旦ここまでいじった */
 
 @media screen and (max-width: 500px) {
@@ -289,6 +307,13 @@ img {
     justify-content: center;
 }
 
+/* 新しく追加 */
+#map-title h2 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
 #map-display {
     margin: 10px;
     height: 88vh;
@@ -297,7 +322,7 @@ img {
 }
 
 #map {
-    border: solid 2px grey;
+    border: solid 1px grey;
     margin-top: 26px;
     height: 88vh;
     border-radius: 10px;
@@ -320,6 +345,13 @@ img {
     justify-content: center;
 }
 
+/* 新しく追加 */
+#route-title h2 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
 #route-display {
     /* background-color: rgb(216, 216, 216); */
     height: 88vh;
@@ -330,14 +362,13 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* すーさん　下の３つを追加 */
-        border-radius: 10px;
-        box-sizing: border-box;
-        border: solid 2px black;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: solid 2px black;
 }
 
 .route-image img {
-    margin-top: 27px;
+    margin-top: 25px;
     display: block;
     width: 100%;
     height: auto;
@@ -348,21 +379,21 @@ img {
     width: 100%;
     height: 40%;
     box-sizing: border-box;
-        border: solid 2px black;
+    border: solid 2px black;
 }
 
 .route-each-b {
     width: 100%;
     height: 20%;
     box-sizing: border-box;
-        border: solid 2px black;
+    border: solid 2px black;
 }
 
 .route-each-c {
     width: 100%;
     height: 40%;
     box-sizing: border-box;
-        border: solid 2px black;
+    border: solid 2px black;
 }
 
 .route-each-a,
@@ -370,14 +401,19 @@ img {
 .route-each-c {
     text-align: left;
     margin-left: 5px;
-    font-size: 18px;
+    /* すーさん　font-size 18px 16pxへ */
+    font-size: 16px;
 }
 
-p{
+.route-each-a,
+.route-each-b,
+.route-each-c,
+p {
     text-align: left;
     margin: 5px;
-    font-size: 14px;
+    font-size: 13px;
 }
+
 /* この中にプランを上から順に表示させる？ */
 .shop-name {
     font-size: 25px;
@@ -557,9 +593,136 @@ a.btn-flat:hover:before {
     transform: translateX(-9%) translateY(-25%) rotate(135deg);
 }
 
-/* すーさんこのした一式追加クーポンのCSS */
-@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+/* フッター 鬼塚付け加えた*/
+footer {
+    margin-top: 150px;
+}
 
+.tree {
+    width: 90px;
+    margin-right: 40px;
+}
+
+.footer-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    height: 130px;
+    width: 100%;
+    background-color: rgb(191, 191, 191);
+}
+
+.footer-wrapper p {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.sns {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    margin-left: 40px;
+}
+
+.sns img {
+    padding-right: 10px;
+}
+
+
+.footer-wrapper p {
+    z-index: 1;
+}
+
+/* 使い方ボタンCSS */
+/*その他と主な共通部分は省略*/
+
+a.btn-fl {
+    overflow: hidden;
+
+    padding: 1.5rem 6rem;
+
+    color: #fff;
+    border-radius: 0;
+    background: #000;
+}
+
+a.btn-fl span {
+    position: relative;
+    z-index: 1;
+}
+
+a.btn-fl:before {
+    position: absolute;
+    top: 0;
+    left: calc(-150% + 50px);
+
+    width: 150%;
+    height: 500%;
+
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+    transform: rotate(45deg) translateX(0) translateY(0);
+
+    background: #fff100;
+}
+
+a.btn-fl:after {
+    position: absolute;
+    top: -400%;
+    right: calc(-150% + 50px);
+
+    width: 150%;
+    height: 500%;
+
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+    transform: rotate(45deg) translateX(0) translateY(0);
+
+    background: #fff100;
+}
+
+a.btn-fl:hover:before {
+    -webkit-transform: rotate(45deg) translateX(0) translateY(-50%);
+    transform: rotate(45deg) translateX(0) translateY(-50%);
+}
+
+a.btn-fl:hover:after {
+    -webkit-transform: rotate(45deg) translateX(0) translateY(50%);
+    transform: rotate(45deg) translateX(0) translateY(50%);
+}
+
+.modal-btn,
+a.modal-btn,
+button.modal-btn {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 1rem 4rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    color: white;
+    border-radius: 0.5rem;
+}
+
+
+/* クーポンのCSS */
 *,
 *:before,
 *:after {
@@ -703,48 +866,4 @@ a.btn-coupon:hover .left {
 a.btn-coupon:hover .right {
     -webkit-transform: rotateX(-20deg) rotateY(75deg);
     transform: rotateX(-20deg) rotateY(75deg);
-}
-
-
-
-
-/* フッター 鬼塚付け加えた*/
-footer {
-    margin-top: 100px;
-}
-
-.tree {
-    width: 100px;
-    margin-right: 40px;
-}
-
-.footer-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    height: 100px;
-    width: 100%;
-    background: linear-gradient(rgb(110, 110, 110), rgb(191, 188, 179));
-}
-
-.footer-wrapper p {
-    font-size: 20px;
-}
-
-.sns {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    margin-left: 40px;
-}
-
-.sns img {
-    padding-right: 10px;
-}
-
-
-.footer-wrapper p {
-    z-index: 1;
 }

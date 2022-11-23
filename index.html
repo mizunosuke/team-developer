@@ -10,9 +10,9 @@
     <!-- Swiper CDN読み込み いくつかスライドさせる方法がありましたがSwiperを使いました-->
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/map1123.css" />
-    <script type="module" src="./map1123.js"></script>
-    <link rel="stylesheet" href="./map-modal1123.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script type="module" src="./route.js"></script>
+    <link rel="stylesheet" href="./modal.css" />
     <title>Document</title>
 </head>
 
@@ -24,7 +24,8 @@
         <!-- この中のHTML要素いじってます -->
         <div id="select-wrapper">
             <div id="select-title">
-                <h1>LOGO</h1>
+                <button class="js-open-modal" data-slide-index="1"><a
+                        class="modal-btn btn-fl"><span>どんな１日にする？</span></a></button>
             </div>
             <div id="select-area">
                 <form>
@@ -70,51 +71,51 @@
                 </form>
 
                 <div class="search-btn">
-                    <button id="btn"><a href="" class="btn btn-flat"><span>SEARCH</span></a></button>
+                    <button id="btn"><a href="#map-route" class="btn btn-flat"><span>SEARCH</span></a></button>
                 </div>
             </div>
         </div>
 
         <div id="img-wrapper">
             <div id="img-container">
-                <img src="img/artem-kniaz-0Ad6Q6SQo1Y-unsplash.jpeg" alt="">
+                <img src="img/artem-kniaz-0Ad6Q6SQo1Y-unsplash (1).jpeg" alt="">
                 <!-- <img src="img/main.png" alt="" class="title-big"> -->
             </div>
         </div>
-    </div>
-    <!-- マップとルートエリア,つまり２段目 -->
-    <div id="map-route">
-        <!-- マップセクション -->
-        <div id="map-wrapper">
-            <div id="map-title">
-                <h1>SHOW MAP</h1></MAP>
-            </div>
-            <div id="map-display">
-                <div id="map">ここにMAPを表示させたい！！！</div>
-            </div>
-        </div>
-        <!-- ルート（プラン）セクション -->
-        <div id="route-wrapper">
-            <div id="route-title">
-                <h1>SHOW ROUTE</h1>
-            </div>
-            <div class="route-image">
-                <img src="img/goodimage.png" alt="">
-            </div>
-            <div id="route-display">
-                <div class="route-each-a">
-
+        <!-- マップとルートエリア,つまり２段目 -->
+        <div id="map-route">
+            <!-- マップセクション -->
+            <div id="map-wrapper">
+                <div id="map-title">
+                    <h1>SHOW MAP</h1>
                 </div>
-                <div class="route-each-b"></div>
-                <div class="route-each-c"></div>
+                <div id="map-display">
+                    <div id="map">ここにMAPを表示させたい！！！</div>
+                </div>
+            </div>
+            <!-- ルート（プラン）セクション -->
+            <div id="route-wrapper">
+                <div id="route-title">
+                    <h1>SHOW ROUTE</h1>
+                </div>
+                <div class="route-image">
+                    <img src="img/goodimage.png" alt="">
+                </div>
+                <div id="route-display">
+                    <div class="route-each-a">
+
+                    </div>
+                    <div class="route-each-b"></div>
+                    <div class="route-each-c"></div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
 
     <!-- モーダル本体 -->
-    <div class="modal" id="modal">
+    <!-- is-activeクラス付け足してます -->
+    <div class="modal is-active" id="modal">
         <div class="modal__overlay js-close-modal"></div>
         <div class="modal__content">
             <button class="modal__close-btn js-close-modal" aria-label="閉じる">×</button>
@@ -141,12 +142,12 @@
     </div>
 
     <!-- ここからフッター加えた -->
+    <!-- ここからフッター加えた -->
     <footer>
         <div class="footer-wrapper">
-            <div class="tree"><img
-                    src="/img/kisspng-clip-art-beach-image-silhouette-portable-network-g-download-vector-freeuse-palms-silhouette-png-clip-5c9938962f4304.9561060815535453661936.png">
+            <div class="tree"><img src="/img/route-icon-png-11.png">
             </div>
-            <p>2022 HolidayPlanSearch</p>
+            <p>2022 EnjoyRouteMap</p>
             <div class="sns">
                 <img src="img/icons8-facebook-circled-60.png">
                 <img src="img/icons8-twitter-60.png">
