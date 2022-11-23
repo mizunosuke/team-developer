@@ -9,7 +9,6 @@ let placeData = [];
 
 
 
-
 //initialize関数
 function initMap() {
   var latlng = new google.maps.LatLng(35.681382,139.766084);//東京駅
@@ -398,7 +397,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const openModalBtn = document.querySelectorAll(".js-open-modal");
   // モーダルを閉じるボタンを全て取得
   const closeModalBtn = document.querySelectorAll(".js-close-modal");
-
+  
   // Swiperの設定
   const swiper = new Swiper(".swiper", {
       loop: true,
@@ -426,3 +425,4 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
