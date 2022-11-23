@@ -226,9 +226,11 @@ async function searchRoute(shop,place) {
 
 window.initMap = initMap;
 
+$("#route-display").hide();
 
 //検索ボタンクリックで発火
-$('#btn').on('click', async function(e) {
+$('#btn').on('click', async function (e) {
+  $("#route-display").show(0);
   e.preventDefault();
   //クリック時に画像を隠す
   $(".route-image").fadeOut();
@@ -406,3 +408,5 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
