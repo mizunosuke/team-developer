@@ -1,3 +1,7 @@
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+/* すーさんこのした一式追加クーポンのCSS */
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
 /* 別窓でイントロダクション表示 */
 /*モーダルを開くボタン*/
 .modal-open {
@@ -87,17 +91,22 @@ body {
     margin: 0 auto;
 }
 
-.container {}
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 form {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 #select-wrapper {
     z-index: 1;
     background-color: white;
-    opacity: 70%;
+    opacity: 100%;
     width: 100%;
     height: 100px;
     border: 1px solid black;
@@ -105,12 +114,103 @@ form {
     position: fixed;
 }
 
-#select-area {
-    margin-left: 50px;
-    width: 80%;
+/* ここから下結構いじってます */
+
+#select-title {
+    width: 15%;
+    margin: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
+
+#select-title button {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+}
+
+#select-area {
+    width: 85%;
+    display: flex;
+    justify-content: center;
+}
+
+.locationsearch {
+    width: 25%;
+}
+
+#locationSearch {
+    width: 55%;
+    height: 34px;
+    border: 3px solid #00008b;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.child {
+    width: 25%;
+}
+
+#child {
+    width: 55%;
+    height: 34px;
+    border: 3px solid #00008b;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.foodgenre {
+    width: 25%;
+}
+
+#foodGenre {
+    width: 55%;
+    height: 34px;
+    border: 2px solid #00008b;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.placesearch {
+    width: 25%;
+}
+
+#placeSearch {
+    width: 55%;
+    height: 34px;
+    border: 3px solid #00008b;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 2px 7px 3px;
+}
+
+.search-btn {
+    width: 20%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.search-btn button {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.search-btn a {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+}
+
+.search-btn span {
+    color: white;
+}
+
 
 #select-data {
     background-color: rgb(251, 247, 221);
@@ -163,6 +263,8 @@ img {
     z-index: 3;
 }
 
+/* 一旦ここまでいじった */
+
 @media screen and (max-width: 500px) {
     #map-route {
         display: flex;
@@ -187,7 +289,7 @@ img {
 }
 
 #map-wrapper {
-    height: 80vh;
+    height: 88vh;
     width: 50%;
     margin: 0 auto;
 }
@@ -201,17 +303,24 @@ img {
     justify-content: center;
 }
 
+/* 新しく追加 */
+#map-title h2 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
 #map-display {
     margin: 10px;
-    height: 80vh;
+    height: 88vh;
     border-radius: 10px;
 
 }
 
 #map {
     border: solid 1px grey;
-    margin-top: 50px;
-    height: 80vh;
+    margin-top: 36px;
+    height: 88vh;
     border-radius: 10px;
     /* The height is 400 pixels */
     width: 100%;
@@ -219,7 +328,7 @@ img {
 }
 
 #route-wrapper {
-    height: 80vh;
+    height: 88vh;
     width: 50%;
 }
 
@@ -232,9 +341,16 @@ img {
     justify-content: center;
 }
 
+/* 新しく追加 */
+#route-title h2 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
 #route-display {
     /* background-color: rgb(216, 216, 216); */
-    height: 80vh;
+    height: 88vh;
     /* border: solid 1px black; */
     font-size: 10px;
     padding: 10px;
@@ -242,27 +358,47 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: solid 2px black;
 }
 
-.route-image {
+.route-image img {
+    margin: 0 auto;
     display: block;
-    width: 90%;
+    width: 100%;
     height: auto;
+    border-radius: 15px;
 }
 
 .route-each-a {
     width: 100%;
     height: 40%;
+    box-sizing: border-box;
+    border: solid 2px black;
 }
 
 .route-each-b {
     width: 100%;
     height: 20%;
+    box-sizing: border-box;
+    border: solid 2px black;
 }
 
 .route-each-c {
     width: 100%;
     height: 40%;
+    box-sizing: border-box;
+    border: solid 2px black;
+}
+
+.route-each-a,
+.route-each-b,
+.route-each-c {
+    text-align: left;
+    margin-left: 5px;
+    /* すーさん　font-size 18px 16pxへ */
+    font-size: 16px;
 }
 
 .route-each-a,
@@ -270,8 +406,8 @@ img {
 .route-each-c,
 p {
     text-align: left;
-    margin-left: 5px;
-    font-size: 18px;
+    margin: 5px;
+    font-size: 13px;
 }
 
 /* この中にプランを上から順に表示させる？ */
@@ -280,14 +416,186 @@ p {
     background-color: rgb(215, 215, 215);
 }
 
+/* Q&Aボタン部部分デザイン */
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+html {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+.btn,
+a.btn,
+button.btn {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 1rem 4rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    color: #212529;
+    border-radius: 0.5rem;
+}
+
+a.btn-custom01 {
+    margin-bottom: 0.5rem;
+    padding: 0;
+    border-radius: 0.75rem;
+}
+
+a.btn-custom01:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    content: "";
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    -webkit-transform: translate3d(0, 0.75rem, -1rem);
+    transform: translate3d(0, 0.75rem, -1rem);
+
+    border: 2px solid #000;
+    border-radius: inherit;
+    background: #ccc100;
+    -webkit-box-shadow: 0 0.6rem 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.6rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom01:after {
+    font-family: "Font Awesome 5 Free";
+    font-size: 2rem;
+    font-weight: normal;
+    line-height: 1;
+    position: absolute;
+    top: calc(50% - 1rem);
+    left: 1.5rem;
+    margin: 0;
+    padding: 0;
+    content: "\f0e0";
+}
+
+.btn-custom01-front {
+    position: relative;
+    display: block;
+    padding: 1.5rem 5rem 1.5rem 5rem;
+
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border: 2px solid #000;
+    border-radius: inherit;
+    background: #fff100;
+}
+
+.fa-position-left {
+    position: absolute;
+    top: calc(50% - 0.5em);
+    left: 1rem;
+}
+
+.fa-position-right {
+    position: absolute;
+    top: calc(50% - 0.5em);
+    right: 1rem;
+}
+
+a.btn-custom01:hover {
+    -webkit-transform: translate(0, 0.25rem);
+    transform: translate(0, 0.25rem);
+    background: #fff100;
+}
+
+a.btn-custom01:hover:before {
+    -webkit-transform: translate3d(0, 0.5rem, -1rem);
+    transform: translate3d(0, 0.5rem, -1rem);
+    -webkit-box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom01:hover:after {
+    content: "\f2b6";
+}
+
+a.btn-custom01:active {
+    -webkit-transform: translate(0rem, 0.75rem);
+    transform: translate(0rem, 0.75rem);
+}
+
+a.btn-custom01:active:before {
+    -webkit-transform: translate3d(0, 0, -1rem);
+    transform: translate3d(0, 0, -1rem);
+    -webkit-box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom01:active:after {
+    content: "\f2b6";
+}
+
+.modal-btn {}
+
+
+/* SEARCHボタンCSS */
+a.btn-flat {
+    overflow: hidden;
+    padding: 1.5rem 6rem;
+    color: #fff;
+    border-radius: 0;
+    background: #000;
+}
+
+a.btn-flat span {
+    position: relative;
+    font-size: 20px;
+}
+
+a.btn-flat:before {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: 150%;
+    height: 500%;
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-70%) rotate(135deg);
+    transform: translateX(-98%) translateY(-70%) rotate(135deg);
+    background: #fff100;
+}
+
+a.btn-flat:hover:before {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(135deg);
+    transform: translateX(-9%) translateY(-25%) rotate(135deg);
+}
 
 /* フッター 鬼塚付け加えた*/
 footer {
-    margin-top: 100px;
+    margin-top: 150px;
 }
 
 .tree {
-    width: 100px;
+    width: 90px;
     margin-right: 40px;
 }
 
@@ -296,18 +604,19 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    height: 100px;
+    color: black;
+    height: 130px;
     width: 100%;
-    background: linear-gradient(rgb(110, 110, 110), rgb(191, 188, 179));
+    background-color: rgb(191, 191, 191);
 }
 
 .footer-wrapper p {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .sns {
-    width: 30px;
+    width: 40px;
     height: 30px;
     display: flex;
     margin-left: 40px;
@@ -320,4 +629,237 @@ footer {
 
 .footer-wrapper p {
     z-index: 1;
+}
+
+/* 使い方ボタンCSS */
+/*その他と主な共通部分は省略*/
+
+a.btn-fl {
+    overflow: hidden;
+
+    padding: 1.5rem 6rem;
+
+    color: #fff;
+    border-radius: 0;
+    background: #000;
+}
+
+a.btn-fl span {
+    position: relative;
+    z-index: 1;
+}
+
+a.btn-fl:before {
+    position: absolute;
+    top: 0;
+    left: calc(-150% + 50px);
+
+    width: 150%;
+    height: 500%;
+
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+    transform: rotate(45deg) translateX(0) translateY(0);
+
+    background: #fff100;
+}
+
+a.btn-fl:after {
+    position: absolute;
+    top: -400%;
+    right: calc(-150% + 50px);
+
+    width: 150%;
+    height: 500%;
+
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+    transform: rotate(45deg) translateX(0) translateY(0);
+
+    background: #fff100;
+}
+
+a.btn-fl:hover:before {
+    -webkit-transform: rotate(45deg) translateX(0) translateY(-50%);
+    transform: rotate(45deg) translateX(0) translateY(-50%);
+}
+
+a.btn-fl:hover:after {
+    -webkit-transform: rotate(45deg) translateX(0) translateY(50%);
+    transform: rotate(45deg) translateX(0) translateY(50%);
+}
+
+.modal-btn,
+a.modal-btn,
+button.modal-btn {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 1rem 4rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    color: white;
+    border-radius: 0.5rem;
+}
+
+
+/* クーポンのCSS */
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+html {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 62.5%;
+    font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo,
+        メイリオ, YuGothic, "游ゴシック sans-serif";
+}
+
+.btn,
+a.btn,
+button.btn {
+    font-size: 0.6rem;
+    font-weight: 100;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 1rem 4rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    color: #212529;
+    border-radius: 0.5rem;
+}
+
+/*ボタン周りの余白用*/
+.btn-wrap {
+    margin: 2px;
+}
+
+a.btn-coupon {
+    line-height: 1.2;
+
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
+    display: flex;
+
+    width: 200px;
+    height: 25px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+a.btn-coupon .left {
+    width: 80%;
+    padding-top: 2px;
+
+    -webkit-transition: all 0.6s;
+
+    transition: all 0.6s;
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+
+    border: 2px solid #e94919;
+    border-right: 0;
+    background: #fff;
+
+    -webkit-transform-style: preserve-3d;
+
+    transform-style: preserve-3d;
+}
+
+a.btn-coupon .left span {
+    font-size: 0.5rem;
+}
+
+a.btn-coupon .left span.txt1 {
+    font-size: 0.7rem;
+
+    color: #e94919;
+}
+
+a.btn-coupon .left em {
+    font-size: 1.5rem;
+    font-style: normal;
+
+    display: block;
+
+    color: #e94919;
+}
+
+a.btn-coupon .right {
+    position: relative;
+
+    width: 20%;
+    height: 100%;
+
+    -webkit-transition: all 0.6s;
+
+    transition: all 0.6s;
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+
+    color: #fff;
+    border-left: 2px dotted #fff;
+    background: #e94919;
+
+    -webkit-transform-style: preserve-3d;
+
+    transform-style: preserve-3d;
+}
+
+a.btn-coupon .right span {
+    font-size: 1rem;
+    line-height: 1;
+
+    position: absolute;
+    top: -0.8rem;
+    left: calc(50% - 0.8rem);
+
+    display: inline-block;
+
+    -webkit-transform: rotate(90deg);
+
+    transform: rotate(90deg);
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+}
+
+a.btn-coupon:hover .left {
+    -webkit-transform: rotateX(-20deg);
+    transform: rotateX(-20deg);
+}
+
+a.btn-coupon:hover .right {
+    -webkit-transform: rotateX(-20deg) rotateY(75deg);
+    transform: rotateX(-20deg) rotateY(75deg);
 }

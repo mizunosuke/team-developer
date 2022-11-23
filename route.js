@@ -9,7 +9,6 @@ let placeData = [];
 
 
 
-
 //initialize関数
 function initMap() {
     var latlng = new google.maps.LatLng(35.681382, 139.766084);//東京駅
@@ -133,7 +132,8 @@ async function getPlacesData() {
     //inputタグから入力された内容を取得
     const searchText = $("#locationSearch").val();
     const txtSearch = $('#placeSearch').val();
-    const inputText = searchText + " " + txtSearch;
+    const searchArea = $("#child").val();
+    const inputText = searchText + " " + searchArea + " " + txtSearch;
     const place_url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Cgeometry&input=${inputText}&inputtype=textquery&key=AIzaSyBv1jCDYdaz7X9RIr4EsBa2Y2FKFEzJZqE`;
 
     //APIにリクエスト
@@ -249,8 +249,18 @@ $('#btn').on('click', async function (e) {
     <p>${shopArr[i].shops.start.address}</p>
     <p>平均予算 : ${shopArr[i].shops.start.budget.name}</p>
     <p>クレジットカード利用 : ${shopArr[i].shops.start.card}</p>
-    <p><a href="${shopArr[i].shops.start.coupon.pc}">クーポンを獲得する</a></p>
-    <p><a href="${shopArr[i].shops.start.url.pc}">ホームページへ</a></p>
+    <div class="btn-wrap">
+    <a href="${shopArr[i].shops.start.coupon.pc}" target="_blank" class="btn btn-coupon">
+    <div class="left"><span class="txt1">食べログクーポン券</span></div>
+    <div class="right"><span>お得</span></div>
+    </a>
+    </div>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.start.url.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">ホームページへ移動</span></div>
+      <div class="right"><span>HP</span></div>
+      </a>
+    </div>
     `);
     }
     $(".route-each-a").html(starthtmlElem);
@@ -264,8 +274,18 @@ $('#btn').on('click', async function (e) {
     <p>${shopArr[i].shops.end.address}</p>
     <p>平均予算 : ${shopArr[i].shops.end.budget.name}</p>
     <p>クレジットカード利用 : ${shopArr[i].shops.end.card}</p>
-    <p><a href="${shopArr[i].shops.end.coupon.pc}">クーポンを獲得する</a></p>
-    <p><a href="${shopArr[i].shops.end.url.pc}">ホームページへ</a></p>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.end.coupon.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">食べログクーポン券</span></div>
+    <div class="right"><span>お得</span></div>
+      </a>
+    </div>
+    <div class="btn-wrap">
+      <a href="${shopArr[i].shops.end.url.pc}" target="_blank" class="btn btn-coupon">
+      <div class="left"><span class="txt1">ホームページへ移動</span></div>
+      <div class="right"><span>HP</span></div>
+      </a>
+    </div>
     `);
     }
     $(".route-each-c").html(endhtmlElem);
@@ -298,15 +318,54 @@ var area = {
     福岡: [
         '天神',
         '博多',
+        "大名",
+        "糸島",
+        "北区",
+        "中央区",
+        "南区",
+        "西区",
+        "東区",
+        "小倉",
+        "飯塚",
+        "北九州",
+        "唐津",
     ],
     広島: [
-        '広島市',
-        '呉市',
+        '広島駅',
+        '呉',
+        "中区",
+        "福山",
+        "廿日市",
+        "尾道",
+        "安佐",
+        "江田島",
+        "東広島",
+        "宇品",
+        "西区",
+        "南区",
     ],
     東京: [
         '渋谷',
         '池袋',
-        '東京',
+        '原宿',
+        "品川",
+        "上野",
+        "秋葉原",
+        "蒲田",
+        "中野",
+        "杉並",
+        "八王子",
+        "新宿",
+        "恵比寿",
+        "五反田",
+        "目黒",
+        "田町",
+        "代々木",
+        "新大久保",
+        "巣鴨",
+        "葛飾",
+        "豊洲",
+        "東京駅"
     ],
     大阪: [
         '梅田',
