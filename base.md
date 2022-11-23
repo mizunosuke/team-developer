@@ -2,7 +2,7 @@
 marp: true
 theme: gaia
 header: "**G`s Academy** __JS選手権発表会__"
-footer: "by **Mizuki Hirae**"
+footer: "**developed by とっぷおぶざわーるど**"
 ---
 
 
@@ -12,9 +12,9 @@ _class: lead
 _color: black
 -->
 
-# **タイトル**
+# **Enjoy Route Map**
 
-### **スーパー家計簿アプリ**
+### お出かけルートをお手軽に作成！
 
 ![bg blur:6px opacity:0.47](./src/images/background.jpg)
 
@@ -40,58 +40,34 @@ _backgroundColor: white
 _class: lead
 -->
 
-# 自分にとって使いやすい家計簿が欲しい！
+# 突然ですが
+---
+<!--
+_backgroundColor: white
+_class: lead
+-->
+# 行きたい場所がなくて
 
-#### 誰でもつかいやすいなんてことはないですよね
-
-##### こまめな性格ではないので続きません・・・
+# 困ったことはありませんか？
 ---
 
 <!--
 _backgroundColor: white
 _class: lead
 -->
+# 今日1日おでかけしたいけど
 
-# 既存のアプリにおける疑問
-
-## その１
-
-#### クレジットカードで支払いして
-#### **今月あと何円使えるか忘れる**
----
-
-<!--
-_backgroundColor: white
-_class: lead
--->
-# 既存のアプリにおける疑問
-
-## その２
-
-#### 家計簿つけてもモチベが上がらない
-
-###### **書くのは支出ばかり**   テンションも上がりません
+# どこに出かけようか
 
 ---
 <!--
 _backgroundColor: white
+_class: lead 
 -->
 
-# 自分でつくればいい！
+# 家族と過ごす週末は
 
-### 使用技術
-
-#### 1 React.js
-
-##### ---近年のWebサービスにおいて世界的に圧倒的な導入率を誇る
-
-##### ---**JavaScriptライブラリ**
-
-#### 2 FireBase
-
-##### ---**Googleが提供**
-
-##### ---モバイル・Webアプリケーション向けのプラットフォーム
+# どこに行こうか
 
 ---
 <!--
@@ -99,81 +75,124 @@ _backgroundColor: white
 _class: lead
 -->
 
-# まずはデモアプリ画面をご覧ください
+# 恋人とのデートコースは
+
+# どこに行こうか
 
 
 ---
 <!--
 _backgroundColor: white
+_class: lead
 -->
-## こだわりポイント
+# 私たちのアプリなら
 
-### 1.月による入力内容の表示・非表示
+# そんな悩みを解決することができます
 
-### firestoreの中から条件指定句である**where,startAt,endAt**を使用
+---
+<!--
+_backgroundColor: white
+_class: lead
+-->
+
+## サービス名
+
+# **Enjoy Route Map**
+
+### ルートを自動で検索し、おすすめのコースを提案することが可能なアプリです
+
+---
+<!--
+_backgroundColor: white
+-->
+
+# 使用技術
+
+## --**HotPepperAPI(ホットペッパーAPI)**
+
+##### 大手グルメ店紹介サイトが提供する**店舗情報を掲載したAPI**
+
+## --**Google Map API**
+
+##### Googleが提供する位置情報取得API
+
+##### **位置情報**の他にも、**施設情報**や**ルート検索/表示**など提供する機能は多岐にわたる
+
+
+
+---
+<!--
+_backgroundColor: white
+_class: lead
+-->
+
+# デモ動画をご覧ください
+
+---
+<!--
+_backgroundColor: white
+_class: lead
+-->
+
+# 開発にあたってこだわったポイント
+---
+<!--
+_backgroundColor: white
+-->
+
+# 1.各APIからデータを取得、表示までの順序を考慮
 
 ```javascript
-      //入力したタイミングを取得して保存(初期値は現在の時間)
-    const [ date, setDate ] = useState(new Date());
-    //データ取得の開始年月を取得
-    const startOfMonth = (date) => {
-        return new Date(date.getFullYear(), date.getMonth(), 1);
-      }
-      //uidが一致するデータのみ取得する
-      where('uid', '==', currentUser.uid), orderBy('date'), startAt(startOfMonth(date)), endAt(endOfMonth(date));
+//ホットペッパーからデータを取得
+let shopData = await getHotpepperData();
+//GoogleMapからデータを取得
+let placeData = await getPlacesData();
+//それぞれのデータをルート検索用の関数に渡す
+let traveldata = await searchRoute(shopData,placeData);
 ```
+#### async/awaitを使用してホットペッパー、GoogleMapから
 
----
+#### 取得したデータをルート検索する関数に渡すことを実現
+___
+<!--
+_backgroundColor: white
+-->
+# 2.ルートパターンを複数作成するためAPIで取得したデータをランダムに
+
+```javascript
+  //ホットペッパーから取ってきたデータのうちランダムに2つの緯度経度を取得
+  const startNum = Math.floor(Math.random()*5);
+  const endNum = Math.floor(Math.random()*4 + 5);
+  //設定した乱数をデータ配列のインデックス番号として使用
+  const startShopLatLng = {
+    lat: shopData[startNum].lat,
+    lng: shopData[startNum].lng
+  };
+  //終了地点も同様
+```
+___
 <!--
 _backgroundColor: white
 -->
 
-## こだわりポイント
-
-### 2.認証機能をもたせるため**Authentication**を使用
+# 3.オプションタグを条件によって動的に生成
 
 ```javascript
- //サインアップ処理
-    const signup = async(email, password) => {
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            await onAuthStateChanged(auth, (user)=>{
-                setCurrentUser(user);//ステートによるユーザー状態の管理
-                console.log(user);
-                navigate("/home");//ホーム画面に遷移
-            });
-            //catch処理は省略
-        } 
-    };
+//配列で用意した地域名を取り出して生成
+for (var i = 0; i < smallArea.length; i++) {
+    option = '<option id="selectedSmallArea" value="'
+    + smallArea[i] + '">' + smallArea[i] + '</option>';
+    $('#child').append(option);
+}
+else { //valueに何も値が入っていない場合
+        $('#child').html(noValue); //noValue変数でhtml要素を空にしてある
+    }
 ```
-
----
-<!--
-_backgroundColor: white
--->
-
-## こだわりポイント
-
-### 3.収入、支出の金額を**別々の配列**に
-###   収支の**合計・残高**を計算
-
-```javascript
-//入力金額を保存
-    const [ inputAmount, setInputAmount ] = useState();
-    //typeがincの内容を配列に保存
-    const [ incomeItems, setIncomeItems ] = useState([]);
-    //typeがexpの内容を配列に保存
-    const [ expenseItems, setExpenseItems ] = useState([]);
-    //収入合計(支出も同様)
-    const incomeTotalAmount = incomeAmount.reduce(function(sum, element){
-        return sum + element;
-      }, 0);
-```
-
 ---
 <!--
 _backgroundColor: white
 _class: lead
 -->
+# 以上
 
-# ご清聴ありがとうございました！！
+# ご清聴ありがとうございました！
